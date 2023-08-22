@@ -23,7 +23,7 @@ export class TicketService {
 
    async createTicket(addTicket: CreateTicketDto): Promise<Ticket>{
       const newTicket = new this.ticketModel(addTicket);
-      return newTicket;
+      return newTicket.save();
    }
 
 }

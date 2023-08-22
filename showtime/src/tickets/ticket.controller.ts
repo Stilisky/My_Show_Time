@@ -1,10 +1,22 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { TicketService } from './ticket.service';
+import { CreateTicketDto } from './dto/createTicketDto';
+import { Ticket } from './schemas/ticket.schema';
 
-@Controller("users")
+@Controller("tickets")
 export class TicketController {
+   constructor(private readonly ticketServive: TicketService) {}
+
    @Get()
-   getusers() {
-      return "alluser work"
+   async getusers() {
+      return this.ticketServive.findAllTickets()
    }
+
+   @Post()
+   async saveUser(@Body() newTicket: CreateTicketDto): Promise<Ticket> {
+      return this.ticketServive.createTicket(newTicket);
+   }
+
+
 }

@@ -13,19 +13,19 @@ export class User {
    @Prop()
    lastname: string
 
-   @Prop()
+   @Prop({required: true})
    username: string
 
-   @Prop()
+   @Prop({required: true})
    email: string
 
-   @Prop()
+   @Prop({required: true})
    password: string
 
    @Prop()
    phone:number
 
-   @Prop()
+   @Prop({default: "Benin"})
    country: string
 
    @Prop()
@@ -34,7 +34,7 @@ export class User {
    @Prop()
    picture: string
 
-   @Prop()
+   @Prop({default: false})
    is_admin: boolean
 
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ticket'}] })
