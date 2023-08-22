@@ -7,7 +7,7 @@ export type TagDocument = HydratedDocument<Tag>
 
 @Schema()
 export class Tag {
-   @Prop()
+   @Prop({required: true})
    name: string
 
    @Prop()
