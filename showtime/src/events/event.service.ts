@@ -27,4 +27,9 @@ export class EventService {
    async updateEvent(id: string, ev: UpdateEventDto): Promise<Event> {
       return this.eventModel.findByIdAndUpdate(id, ev).exec()
    }
+
+   async delete(id: string): Promise<Event> {
+      return this.eventModel.findByIdAndDelete(id)
+   }
+   
 }

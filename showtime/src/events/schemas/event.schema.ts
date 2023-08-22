@@ -8,14 +8,17 @@ export type EventDocument = HydratedDocument<Event>
 
 @Schema()
 export class Event {
-   @Prop()
+   @Prop({ required: true })
    name: string
 
-   @Prop()
+   @Prop({ required: true })
    description: string
 
-   @Prop()
+   @Prop({ default: Date.now() })
    release_date: string
+
+   @Prop({required: true})
+   event_date: string
 
    @Prop()
    picture: string
