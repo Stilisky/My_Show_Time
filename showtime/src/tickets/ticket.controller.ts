@@ -5,6 +5,6 @@ import { Controller, Get } from '@nestjs/common';
 export class TicketController {
    @Get()
    getusers() {
-      
+      return "alluser work"
    }
 }

@@ -7,6 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Ticket } from './schemas/ticket.schema';
 import { Model } from 'mongoose';
+import { CreateTicketDto } from './dto/createTicketDto';
 
 @Injectable()
 export class TicketService {
@@ -20,5 +21,9 @@ export class TicketService {
       return ticket;
    }
 
-   
+   async createTicket(addTicket: CreateTicketDto): Promise<Ticket>{
+      const newTicket = new this.ticketModel(addTicket);
+      return newTicket;
+   }
+
 }
