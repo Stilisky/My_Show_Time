@@ -18,6 +18,5 @@ import { AppService } from './app.service';
     MongooseModule.forRoot('mongodb://localhost/showtime'),
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
