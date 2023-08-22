@@ -26,4 +26,7 @@ export class TicketService {
       return newTicket.save();
    }
 
+   async deleteTicket(id: string): Promise<Ticket> {
+      return this.ticketModel.findByIdAndDelete(id).exec()
+   }
 }

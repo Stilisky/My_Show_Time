@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/createTicketDto';
 import { Ticket } from './schemas/ticket.schema';
@@ -9,14 +9,26 @@ export class TicketController {
    constructor(private readonly ticketServive: TicketService) {}
 
    @Get()
-   async getusers() {
+   async getTickets() {
       return this.ticketServive.findAllTickets()
    }
 
    @Post()
-   async saveUser(@Body() newTicket: CreateTicketDto): Promise<Ticket> {
+   async saveTicket(@Body() newTicket: CreateTicketDto): Promise<Ticket> {
       return this.ticketServive.createTicket(newTicket);
    }
+
+   @Get(":id")
+   async getTicketById(@Param("id") id: string): Promise<Ticket> {
+      return this.ticketServive.findTicketById(id)
+   }
+
+   @Delete(":id")
+   async deleteTicket(@Param("id") id: string): Promise<Ticket> {
+      return this.ticketServive.deleteTicket(id)
+   }
+
+
 
 
 }

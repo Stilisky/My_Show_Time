@@ -1,23 +1,24 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
-import { Tag } from "src/tags/schemas/tag.schema";
+import { Event } from "src/events/schemas/event.schema";
+import { User } from "src/users/schemas/user.schema";
 
 export type TicketDocument = HydratedDocument<Ticket>
 
 @Schema()
 export class Ticket {
-   @Prop()
+   @Prop({default: Date.now()})
    release_date: string
 
    @Prop()
    qr_code: string
 
-   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}] })
-   tag: Tag
+   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], required: true })
+   user: User
 
-   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ticket'}] })
-   tickets: Ticket[]
+   @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}], required: true })
+   event: Event
 }
 
 export const TicketSchema = SchemaFactory.createForClass(Ticket)
