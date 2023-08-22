@@ -34,6 +34,9 @@ export class User {
    @Prop()
    picture: string
 
+   @Prop()
+   is_admin: boolean
+
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ticket'}] })
    tickets: Ticket[]
 
