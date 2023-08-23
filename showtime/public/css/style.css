@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.u-hero-gradient {
+  background: transparent radial-gradient(farthest-side at right bottom, #635bff -140%, #10103a) 0 0 no-repeat padding-box;
+}
+
+.u-screen-headerless {
+  min-height: calc(100vh - 4.2rem);
+}
+
+.u-subtitle {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.375;
+}
+
+.hero-lp-text {
+  position: relative;
+  top: -80px;
+  left: 40px;
+}
+
+.hero-r-dive-1 {
+  position: relative;
+  left: 244px;
+  top: 60px;
+}
+
+.hero-r-dive-2 {
+  position: absolute;
+  top: 242px;
+  right: 496px;
+}
+
+.hero-r-dive-3 {
+  position: absolute;
+  top: 581px;
+  right: 496px;
+}
+
+.hero-r-dive-3-secure-div {
+  position: relative;
+  top: 20px;
+}
+
+
+.hero-r-point-2 {
+  position: absolute;
+  top: -475px;
+  right: -322px;
+}
