@@ -16,4 +16,11 @@ export class AppController {
       title: 'Register',
     };
   }
+  @Get('/login')
+  @Render('login')
+  login() {
+    return {
+      title: 'Login',
+    };
+  }
 }
