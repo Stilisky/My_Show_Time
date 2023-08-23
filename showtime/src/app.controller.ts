@@ -6,7 +6,14 @@ export class AppController {
   @Render('index')
   index() {
     return {
-      title: 'Home Page - Online Store',
+      title: 'Home',
+    };
+  }
+  @Get('/usersDashboard')
+  @Render('usersDashboard')
+  usersDashboard() {
+    return {
+      title: 'Dashboard',
     };
   }
 }
