@@ -22,7 +22,7 @@ export class NotificationController {
       return this.notifService.createNotif(newnotif)
    }
 
-   @Delete("id")
+   @Delete(":id")
    async deleteById(@Param("id") id: string): Promise<Notification> {
       return this.notifService.deleteNotif(id)
    }

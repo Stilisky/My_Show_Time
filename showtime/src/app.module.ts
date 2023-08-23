@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { NotificationModule } from './notifications/notification.module';
 import { EventModule } from './events/event.module';
 import { TagModule } from './tags/tag.module';
@@ -9,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    AdminModule,
     NotificationModule,
     EventModule,
     TagModule,

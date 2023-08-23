@@ -36,4 +36,8 @@ export class UserService {
       return await this.userModel.findByIdAndDelete(id);
    }
 
+   async getNumberOfUser(): Promise<number> {
+      return await this.userModel.count();
+   }
+
 }

@@ -15,6 +15,12 @@ constructor(private readonly userService: UserService) {}
       return this.userService.findAllUsers();
    }
 
+   //Count user
+   @Get("/count")
+   async userNumber(): Promise<number> {
+      return this.userService.getNumberOfUser()
+   }
+
    //Create new user
    @Post()
    async saveUser(@Body() newuser: CreateUserDto): Promise<User> {
@@ -34,9 +40,11 @@ constructor(private readonly userService: UserService) {}
    }
 
    //Delete User
-   @Delete("id")
+   @Delete(":id")
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
    }
+
+   
 
 }

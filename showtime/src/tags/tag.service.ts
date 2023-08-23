@@ -30,4 +30,8 @@ export class TagService {
    async deleteTag(id: string): Promise<Tag> {
       return this.tagModel.findByIdAndDelete(id).exec();
    }
+
+   async getNumberOfTag(): Promise<number> {
+      return await this.tagModel.count();
+   }
 }

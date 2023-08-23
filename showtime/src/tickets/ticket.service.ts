@@ -29,4 +29,8 @@ export class TicketService {
    async deleteTicket(id: string): Promise<Ticket> {
       return this.ticketModel.findByIdAndDelete(id).exec()
    }
+
+   async getNumberOfTicket(): Promise<number> {
+      return await this.ticketModel.count();
+   }
 }

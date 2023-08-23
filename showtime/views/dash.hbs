@@ -1,12 +1,81 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>AdminLTE v4</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-</head>
-<body>
-  <script>window.location.href = './dist/pages/index.html'</script>
-</body>
-</html>
+{{#> admin}}
+{{#*inline "content"}}
+<div class="w-100">
+   <div class="row w-100">
+      <div class="col-xl-3 col-md-6 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Users</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{userNumbers}}
+                     </div>
+                  </div>
+                  <div class="col-auto">
+                     <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAdpJREFUWEft10/LTVEUx/HPUyQTE8QLMJKSN6AUYkQMMBMDZUAMhBgppCSG8mfKwBMD+TNiYqoUr8CAMDAyMKClc59Ox93P3efsfZ+uskd3sNb6fe/vrL1ba86MnbkZ4/HPAq3HNezEukqufsZLnMGnUc1chx7gQCWQbpmHONgX6AvWTAnoK9b2BfqVCfMTH5rYjViembfwpXI/WQ7QTZzDjwZiJa7gZAZUdaB57E8IP8K+CVDVgY7iXkL0CO4uNdBuPE+I7sKzpQaamkPt5m03/KSmfoK9CRceY89Qh4YChd4tnO3csqs4UXLLSoBCN96h9837swErMmAiJHnLSoEy9f8KmwrQd7xtHArFTdiCVRmUVYGe4jLeJIS34iK2LwJWBSj65TjuZDgQIadwvd0vrbwqQMdwOxNmFHYBl8bkFAO9w+aeMBG+DB/HDHnFQDdwegBQpNzH4U5uMdBrvBoItA3R6O1TDDSQJZnWGyjGzNW1KZp639rjcXdiTL3U0xzyo/ah0Z/NBYo1KN6QHe2BvNCxWINeNGtQ/P5zcoEKtfPT/wNN8qrrUKy0tVblVFssytQFij0qpr6aJ3f3G9vUkXy+We4W1ttCuiKgQu3y9F705XKTK8wc0G9vvVwlre915AAAAABJRU5ErkJggg==" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+         <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Events</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{eventNumbers}}</div>
+                  </div>
+                  <div class="col-auto">
+                     <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAUtJREFUWEft10tKxEAUheGv96D42JSOxD2oiDNRcaIiIgjiyH04dgcuwLlPxKETQZSCTpMuklgNlXSLqUkghFM/p+6pezMwY2swYzz+LFAAP8AGFjK5+oornJT1Uh26wE4mkFjmCIfFy1SgN8y1BPSM5UmBcrEsYhP7keDImFSHcgEVOgHouCQ6daAlPKUAdZYmfKcAdZamVKDO0pQKVLYxdyEHvXKIko6sBxoeQ23se4d6h+p6Vin2jc11GjXUOH50CfSAS5w3DWhdAlVevPH40QPFNsUOvWQc4uO9xtJU1yhjoFPsttFVMZamVKAAuIdtzGcCe6xKUypQ3Xd1xX6PFYRnlpU65FcB3WAdH1lI4qb2i2gZ6Gv4G3OWE2TS/7IC6B1ruG0DJh4pm/YIQHdYRbjyW1upNXSNLXy2RjJhDbXNMdJPdej/Av0AppBEJbbAa2cAAAAASUVORK5CYII=" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+         <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        Tags</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{tagNumbers}}</div>
+                  </div>
+                  <div class="col-auto">
+                     <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAbRJREFUWEftl78uBVEQh78b4gkktEqFqLwCeglREEGl86fR0QmJ6DSCiIJETzyDSiE0XsAbiCCT7JWb4+yZM+fsri1Mt9k9M9/9zW8m53ZoWXRaxkPrgYaBfWASGDKo9wRsAneGM95PXYWugLmMpMvAWcb5Xy17AwYzEn4BS8BFag5XIUmYG1lQMUAfwC3wAowC00BfBHVS+zQggRkHxLTdkOcHoL8OKA1ITD7vKXwDzEQAyScmpTSgPWDbU/gA2IoEMkFpQGUKXQOzBqBoKA3ovfDQc0/xscJDA0agKCgNSJKkTlkZb9BTMUAJQgSPBPfUXwAJbSmUC/QJjd4ApoD7Xj1doFdgpOoeBfLJgp0IAclukR3TVDwWU/xTz1VInk+K7doE1AJwGVJI3gnUObBYI5GYehU4dWuUXWHrhlrxwXTVKBOiLqg14DhUNNSZqqHWgSOtoGaVqqBUGK1lrvlzjL4D7Gq/3AKUM31ldyovn/WPorV94hdpVXRYgSxKySTJRJkiBSgGKgnG6iHfUvUZXbavLL6kSFWot9hGceGXm+Whtmc0yiqAtBqm9/9AmlytU+gbYr9TJc1I5vwAAAAASUVORK5CYII=" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+         <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        All Tickets</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ticketNumbers}}</div>
+                  </div>
+                  <div class="col-auto">
+                     <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAZxJREFUWEft1z1rFFEUgOFnSW+lBPILjET/RCztbawkjWgUQUkUMYKohUTwA7GwErSyFGwUW/skio1dMGinjSBiOHBdluveXXd2ZlmSmfLO3XPeec/ZuWc6puzqTBmPqQcKwGs4i9mG7X3Da1zG17+5ckP3cLFhkDz8c5wqAQX1wQkDhZ1uNXJDfyYM84+YFqhQga6Y1tCeN/QC8a7awAGcwFPMpCf/jSW8wnccwyWcHPLvrdRDWziK/NXwBosp4Vscz5IH7CYOD4CqBPQAF/oEvY0raf1WOnrybY9xpm6gR1juE/QhzqX10p5Yj/OxdFUy9AELWckiUJTjSMpU2hPlnq8bKOJFU6/jU0rQr2H/Z0/OVslQk8dcCzTMbmto7xjamcBwn9v6grnSTH0Hq8P81nz/Jq6XgKLbr6Yz61DNifNw27iPu703RvlQvIG1AZCh/jxejvMgdQDFOPIEK/gxDkz8dlygjziN9+OClHpoUNzekv1ENGPU/1ddMFUNvUtj6uc6QaoYiiEs5uRnTYBUAWqSoxt7lKben0C7Y55UJTEam5MAAAAASUVORK5CYII=" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+{{/inline}}
+{{/admin}}
