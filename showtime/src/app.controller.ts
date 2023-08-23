@@ -16,5 +16,4 @@ export class AppController {
       title: 'Register',
     };
   }
-  
 }
