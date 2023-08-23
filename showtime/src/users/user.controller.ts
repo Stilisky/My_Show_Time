@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
 import { UpdateUserDto } from './dto/updateUserDto';
+import * as bcrypt from 'bcrypt';
 
 @Controller("users")
 export class UserController {
@@ -16,8 +17,12 @@ constructor(private readonly userService: UserService) {}
    }
 
    //Create new user
-   @Post()
+   @Post('/signup')
    async saveUser(@Body() newuser: CreateUserDto): Promise<User> {
+      const password = newuser.password
+      const saltRounds = 5;
+      const hashedPassword = await bcrypt.hash(password, saltRounds) 
+      newuser.password = hashedPassword;
       return this.userService.createUser(newuser);
    }
 

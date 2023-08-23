@@ -6,7 +6,8 @@ import { UserModule } from './users/user.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     NotificationModule,
@@ -15,7 +16,9 @@ import { MongooseModule } from '@nestjs/mongoose';
     TicketModule,
     UserModule,
     MongooseModule.forRoot('mongodb://localhost/showtime'),
+    AuthModule,
   ],
   controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

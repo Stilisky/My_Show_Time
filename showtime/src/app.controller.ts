@@ -9,4 +9,12 @@ export class AppController {
       title: 'Home Page - Online Store',
     };
   }
+  @Get('/register')
+  @Render('register')
+  register() {
+    return {
+      title: 'Register',
+    };
+  }
+  
 }
