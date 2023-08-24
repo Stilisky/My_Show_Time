@@ -16,7 +16,7 @@ export class AppController {
     private readonly ticketService: TicketService,
     private readonly notifService: NotificationService,
     private readonly appService: AppService,
-  ) {}
+  ) { }
   @Get('/')
   @Render('index')
   index() {
@@ -60,7 +60,7 @@ export class AppController {
       tagname.push(element.name);
       tagusers.push(element.users.length)
     });
-    return {userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers}
+    return { userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers }
   }
 
   @Get("tag/:tag_id/user/:user_id")
@@ -77,7 +77,7 @@ export class AppController {
   @Render('adminusers')
   async adminUsers() {
     const users = await this.userService.findAllUsers();
-    return {users}
+    return { users }
   }
 
   @Post("/promote/:id")
@@ -98,7 +98,7 @@ export class AppController {
   @Render('adminevents')
   async adminEvents() {
     const events = await this.eventService.findAll()
-    return {events}
+    return { events }
   }
 
   @Get('/register')
@@ -106,6 +106,13 @@ export class AppController {
   register() {
     return {
       title: 'Register',
+    };
+  }
+  @Get('/addevent')
+  @Render('addevent')
+  addevent() {
+    return {
+      title: 'Add event',
     };
   }
 
