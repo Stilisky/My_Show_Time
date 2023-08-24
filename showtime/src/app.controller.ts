@@ -116,6 +116,14 @@ export class AppController {
     };
   }
 
+  @Get('/notification')
+  @Render('notification')
+  notification() {
+    return {
+      title: 'Notification',
+    };
+  }
+
   // @Post("/user/register")
   // async registerSubmit(@Body() newUser: cr){
 
