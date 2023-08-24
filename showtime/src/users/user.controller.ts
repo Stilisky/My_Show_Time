@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render } from '@nestjs/common';
-import { Response} from 'express';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session } from '@nestjs/common';
+import { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
@@ -26,13 +26,15 @@ export class UserController {
 
 
    @Post('/login')
-   async login(@Body() existingUser: CreateUserDto,
+   async login( 
+      @Session() session,
+      @Body() existingUser: CreateUserDto,
       @Res() res: Response,
-      //@Session() session: Record<string, any>,
-      ) {
+   ) {
       const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
       // Redirect to /home if login is successful
       if (user) {
+         session["user"] = user
          return res.redirect('/');
       }
       else {
@@ -43,7 +45,7 @@ export class UserController {
    @Get('/login')
    @Render('users/login')
    getLogin(@Query('error') error: string) {
-   return {error};
+      return { error };
    }
 
    //Create new user
@@ -59,7 +61,6 @@ export class UserController {
       newuser.password = hashedPassword;
 
       const createdUser = await this.userService.createUser(newuser);
-
       // Redirect to "favTag" page upon successful registration
       if (createdUser) {
          // res.redirect('/favTag');

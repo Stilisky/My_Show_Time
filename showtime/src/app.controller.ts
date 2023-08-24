@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Res, Session } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -21,9 +21,12 @@ export class AppController {
   ) {}
   @Get('/')
   @Render('index')
-  index() {
+  index(@Session() session) {
+    const user = session.user;
+    console.log(session);
     return {
       title: 'Home',
+      user: user,
     };
   }
   @Get('/usersDashboard')
@@ -139,11 +142,6 @@ export class AppController {
       title: 'Register',
     };
   }
-
-  // @Post("/user/register")
-  // async registerSubmit(@Body() newUser: cr){
-
-  //}
 
   @Get('/login')
   @Render('login')
