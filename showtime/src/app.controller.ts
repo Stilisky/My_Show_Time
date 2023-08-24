@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
 import { TicketService } from './tickets/ticket.service';
 import { NotificationService } from './notifications/notification.service';
 import { AppService } from './app.service';
+import { Response } from 'express';
+import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
 
 @Controller()
 export class AppController {
@@ -75,23 +77,52 @@ export class AppController {
 
   @Get("/admin/users")
   @Render('adminusers')
-  async adminUsers() {
+  async adminUser() {
     const users = await this.userService.findAllUsers();
     return {users}
   }
 
+  @Get("/admin/tags")
+  @Render('admintags')
+  async adminTags() {
+    const tags = await this.tagService.findTags()
+    return {tags}
+  }
+
   @Post("/promote/:id")
-  @Redirect("/admin/users")
-  async promote(@Param("id") id: string) {
+  async promote(@Param("id") id: string, @Res() res: Response) {
     this.appService.promote(id)
-    return Response.redirect("/admin/users");
+    // const users = await this.userService.findAllUsers();
+    res.render("adminusers.hbs")
   }
 
   @Post("/delete/user/:id")
-  @Redirect("/admin/users")
-  async delete(@Param("id") id: string) {
-    this.appService.deleteuser(id)
-    return Response.redirect("/admin/users");
+  async delete(@Param("id") id: string, @Res() res: Response) {
+    await this.appService.deleteuser(id)
+    const users = await this.userService.findAllUsers();
+    res.render("adminusers.hbs", {users})
+  }
+
+  @Get("/update/tag/:id")
+  @Render("updateTag.hbs")
+  async updateTag(@Param("id") id: string) {
+    const tag = this.tagService.findTag(id)
+    // const users = await this.userService.findAllUsers();
+    return {tag}
+  }
+
+  @Post("/update/tag/:id")
+  async updateTagP(@Param("id") id: string, @Body() upTag: UpdateTagDto, @Res() res: Response) {
+     await this.tagService.updateTag(id, upTag)
+    const tags = await this.tagService.findTags();
+    res.render("admintags.hbs", {tags})
+  }
+
+  @Post("/delete/tag/:id")
+  async deleteTag(@Param("id") id: string, @Res() res: Response) {
+    this.tagService.deleteTag(id)
+    const tags = await this.tagService.findTags();
+    res.render("admintags.hbs", {tags})
   }
 
   @Get("/admin/events")

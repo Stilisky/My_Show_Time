@@ -33,11 +33,11 @@
                               <td>
                                  {{#if is_admin }}
                                  <form action="/promote/{{_id}}" method="post">
-                                    <input type="submit" value="Promote" class="btn btn-success opacity-90">
+                                    <input type="submit" value="Demote" class="btn btn-success opacity-90">
                                  </form>
                                  {{else}}
                                  <form action="/promote/{{_id}}" method="post">
-                                    <input type="submit" value="Demote" class="btn btn-primary opacity-90">
+                                    <input type="submit" value="Promote" class="btn btn-primary opacity-90">
                                  </form>
                                  {{/if}}
                               </td>

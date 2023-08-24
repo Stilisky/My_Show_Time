@@ -20,6 +20,9 @@ export class Event {
    @Prop({required: true})
    event_date: string
 
+   @Prop({required: true})
+   city: string
+
    @Prop()
    picture: string
 
