@@ -54,17 +54,17 @@
                               <td>{{tickets.length}}</td>
                               <td>
                                  {{#if status }}
-                                 <form action="/status/{{_id}}" method="post">
+                                 <form action="/event/status/{{_id}}" method="post">
                                     <input type="submit" value="Finish" class="btn btn-success opacity-90">
                                  </form>
                                  {{else}}
-                                 <form action="/status/{{_id}}" method="post">
+                                 <form action="/event/status/{{_id}}" method="post">
                                     <input type="submit" value="Not Start" class="btn btn-secondary opacity-90">
                                  </form>
                                  {{/if}}
                               </td>
                               <td>
-                                 <form action="/update/event/{{_id}}" method="post">
+                                 <form action="/update/event/{{_id}}" method="get">
                                     <input type="submit" value="Update" class="btn btn-primary opacity-90">
                                  </form>
                               </td>

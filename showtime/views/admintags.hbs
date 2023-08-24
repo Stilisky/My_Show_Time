@@ -47,9 +47,9 @@
                               <td> {{users.length}} </td>
                               <td class="text-center">{{events.length}}</td>
                               <td class="text-center">
-                                 <a href="/update/tag">
-                                    <input type="button" value="Update" class="btn btn-success">
-                                 </a>
+                                 <form action="/update/tag/{{_id}}" method="get">
+                                    <input type="submit" value="Update" class="btn btn-success opacity-90">
+                                 </form>
                               </td>
                               <td>
                                  <form action="/delete/tag/{{_id}}" method="post">

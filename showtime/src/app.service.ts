@@ -6,6 +6,7 @@ import { Tag } from './tags/schemas/tag.schema';
 import { EventService } from './events/event.service';
 import { UpdateUserDto } from './users/dto/updateUserDto';
 import { User } from './users/schemas/user.schema';
+import { Ticket } from './tickets/schemas/ticket.schema';
 
 @Injectable()
 export class AppService {
@@ -50,4 +51,18 @@ export class AppService {
   async deleteuser(@Param("id") id: string): Promise<User> {
     return await this.userServ.deleteUser(id)
   }
+
+  async status(@Param("id") id: string) {
+    const event = await this.eventServ.findById(id)
+    if(event.status) {
+      event.status = false
+    } else {
+      event.status = true
+    }
+    this.eventServ.updateEvent(id, event)
+  }
+
+  // async bookConcertTicket(@Param("event_id") event_id: string, @Param("user_id") user_id: string): Promise<Ticket> {
+
+  // }
 }
