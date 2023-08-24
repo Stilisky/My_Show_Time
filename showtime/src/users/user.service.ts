@@ -9,6 +9,8 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/createuser.dto';
 import { UpdateUserDto } from './dto/updateUserDto';
+import * as bcrypt from 'bcrypt';
+//import { log } from 'console';
 
 @Injectable()
 export class UserService {
@@ -16,7 +18,7 @@ export class UserService {
 
    async createUser(createUserDto: CreateUserDto): Promise<User> {
       const { email, username, phone } = createUserDto;
-      
+
       // Check email format using regex
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!emailRegex.test(email)) {
@@ -56,30 +58,50 @@ export class UserService {
 
       return createdUser.save();
    }
+   async validateUser(email: string, password: string): Promise<{ user: User | null; error: string | null }> {
+      
+      try {
+         const user = await this.userModel.findOne({ email }).exec();
 
-   async getUserByEmail(email: string): Promise<User | null> {
-      const user = await this.userModel.findOne({ email }).exec();
-      return user || null;
-   }
-   async findAllUsers(): Promise<User[]> {
-      return await this.userModel.find().exec();
+         if (!user) {
+            return { user: null, error: 'User not found' };
+         }
+
+         const passwordMatch = await bcrypt.compare(password, user.password);
+
+         if (!passwordMatch) {
+            return { user: null, error: 'Invalid credentials' };
+         }
+
+         return { user, error: null };
+      } catch (error) {
+         throw new Error('An error occurred while processing your request');
+      }
    }
 
-   async findUserById(id: string): Promise<User> {
-      return await this.userModel.findById(id).exec();
-   }
+   async getUserByEmail(email: string): Promise < User | null > {
+   const user = await this.userModel.findOne({ email }).exec();
+   return user || null;
+}
+   async findAllUsers(): Promise < User[] > {
+   return await this.userModel.find().exec();
+}
 
-   async updateUser(id: string, userupdt: UpdateUserDto): Promise<User> {
-      const upUser = await this.userModel.findByIdAndUpdate(id, userupdt)
+   async findUserById(id: string): Promise < User > {
+   return await this.userModel.findById(id).exec();
+}
+
+   async updateUser(id: string, userupdt: UpdateUserDto): Promise < User > {
+   const upUser = await this.userModel.findByIdAndUpdate(id, userupdt)
       return upUser;
-   }
+}
 
-   async deleteUser(id: string): Promise<User> {
-      return await this.userModel.findByIdAndDelete(id);
-   }
+   async deleteUser(id: string): Promise < User > {
+   return await this.userModel.findByIdAndDelete(id);
+}
 
-   async getNumberOfUser(): Promise<number> {
-      return await this.userModel.count();
-   }
+   async getNumberOfUser(): Promise < number > {
+   return await this.userModel.count();
+}
 
 }
