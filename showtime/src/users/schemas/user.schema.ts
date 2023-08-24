@@ -28,7 +28,7 @@ export class User {
    @Prop({default: "Benin"})
    country: string
 
-   @Prop()
+   @Prop({required: true})
    birthdate: string
 
    @Prop()

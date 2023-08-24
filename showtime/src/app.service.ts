@@ -1,8 +1,53 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Injectable, Param } from '@nestjs/common';
+import { TagService } from './tags/tag.service';
+import { UserService } from './users/user.service';
+import { Tag } from './tags/schemas/tag.schema';
+import { EventService } from './events/event.service';
+import { UpdateUserDto } from './users/dto/updateUserDto';
+import { User } from './users/schemas/user.schema';
 
 @Injectable()
 export class AppService {
+  constructor(
+    private readonly tagServ: TagService,
+    private readonly userServ: UserService,
+    private readonly eventServ: EventService
+  ) {}
+  
   getHello(): string {
     return 'Hello World!';
+  }
+
+  async addUserToTag(@Param("tag_id") tag_id: string, @Param("user_id") user_id: string): Promise<Tag> {
+    const tag = await this.tagServ.findTag(tag_id)
+    const user = await this.userServ.findUserById(user_id)
+    tag.users.push(user)
+    const tagup = await this.tagServ.updateTag(tag_id, tag)
+    return tagup
+  }
+
+  async addEventToTag(@Param("tag_id") tag_id: string, @Param("event_id") event_id: string): Promise<Tag> {
+    const tag = await this.tagServ.findTag(tag_id)
+    const event = await this.eventServ.findById(event_id)
+    tag.events.push(event)
+    const tagup = await this.tagServ.updateTag(tag_id, tag)
+    return tagup
+  }
+
+  async promote(@Param("id") id: string): Promise<User> {
+    const user = await this.userServ.findUserById(id);
+    if (user.is_admin == false) {
+      user.is_admin = true;
+    } else {
+      user.is_admin = false;
+    }
+    let newuser = new UpdateUserDto();
+    newuser = user
+    return await this.userServ.updateUser(id, newuser)
+  }
+  
+  async deleteuser(@Param("id") id: string): Promise<User> {
+    return await this.userServ.deleteUser(id)
   }
 }

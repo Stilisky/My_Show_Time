@@ -1,0 +1,85 @@
+{{#> admin}}
+{{#*inline "content"}}
+<div class="w-100">
+   <div class="row justify-content-center">
+      <div class="col-xl-5 col-md-6 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        New event comming ?</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/new/event">
+                           <button class="btn btn-info">Added It !</button>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="col-auto">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-1 15h-6v-6h6v6zm1-10H5V7h14v2z"></path></svg>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> <br>
+   <div class="row">
+      <div class="col-xl-12 col-md-12 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="mr-2">
+                     <div class="text-xs font-weight-bold mb-1 text-center">
+                        <h2 class="text-primary text-uppercase">Events Resume</h2>
+                     </div>
+                     <table class="w-100 table table-striped table-bordered">
+                        <thead class="text-center">
+                           <th class="w-5">Name</th>
+                           <th class="w-25">Description</th>
+                           <th class="w-25">Event Date</th>
+                           <th class="w-15">Tickets</th>
+                           <th class="w-10">Status</th>
+                           <th class="w-10">Update</th>
+                           <th class="w-10">Delete</th>
+                        </thead>
+                        <tbody>
+                           {{#each events }}
+                           <tr class="mb-4 text-center">
+                              <td class="text-center"> {{name}} </td>
+                              <td> {{description}} </td>
+                              <td class="text-center">{{event_date}}</td>
+                              <td>{{tickets.length}}</td>
+                              <td>
+                                 {{#if status }}
+                                 <form action="/status/{{_id}}" method="post">
+                                    <input type="submit" value="Finish" class="btn btn-success opacity-90">
+                                 </form>
+                                 {{else}}
+                                 <form action="/status/{{_id}}" method="post">
+                                    <input type="submit" value="Not Start" class="btn btn-secondary opacity-90">
+                                 </form>
+                                 {{/if}}
+                              </td>
+                              <td>
+                                 <form action="/update/event/{{_id}}" method="post">
+                                    <input type="submit" value="Update" class="btn btn-primary opacity-90">
+                                 </form>
+                              </td>
+                              <td>
+                                 <form action="/delete/event/{{_id}}" method="post">
+                                    <input type="submit" value="Delete" class="btn btn-danger opacity-90">
+                                 </form>
+                              </td>
+                           </tr>
+                           {{/each}}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+</div>
+{{/inline}}
+{{/admin}}

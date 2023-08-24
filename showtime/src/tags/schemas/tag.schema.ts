@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { HydratedDocument } from "mongoose";
+import { Event } from "src/events/schemas/event.schema";
 import { User } from "src/users/schemas/user.schema";
 
 export type TagDocument = HydratedDocument<Tag>
@@ -17,7 +18,7 @@ export class Tag {
    users: User[]
 
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}] })
-   envents: Event[]
+   events: Event[]
 
 }
 

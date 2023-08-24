@@ -4,9 +4,9 @@ export class UpdateUserDto {
    lastname: string;
    username: string;
    email: string;
-   phone: string;
+   phone: number;
    country: string;
-   birthday: string;
+   birthdate: string;
    picture: string;
-   is_admin: string;
+   is_admin: boolean;
 }

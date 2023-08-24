@@ -7,7 +7,8 @@
             <div class="card-body">
                <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                     <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Users</div>
                      <div class="h5 mb-0 font-weight-bold text-gray-800">
                         {{userNumbers}}
@@ -27,7 +28,8 @@
             <div class="card-body">
                <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                     <div
+                        class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Events</div>
                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{eventNumbers}}</div>
                   </div>
@@ -44,7 +46,8 @@
             <div class="card-body">
                <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                     <div
+                        class="text-xs font-weight-bold text-info text-uppercase mb-1">
                         Tags</div>
                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{tagNumbers}}</div>
                   </div>
@@ -62,7 +65,8 @@
             <div class="card-body">
                <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                     <div
+                        class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                         All Tickets</div>
                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ticketNumbers}}</div>
                   </div>
@@ -75,7 +79,76 @@
          </div>
       </div>
    </div>
+   <div class="row">
+      <div class="col-xl-6 col-md-6 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="mr-2">
+                     <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Users per Group
+                     </div>
+                     <canvas id="groupchart">
+
+                     </canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-xl-6 col-md-6 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="mr-2">
+                     <div
+                        class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Events per Monthly
+                     </div>
+                     <canvas id="eventschart">
+
+                     </canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
-</div>
+<script>
+   const ctx1 = document.getElementById('groupchart');
+   let datas = {
+    labels: tagname,
+    datasets: [{
+      label: 'Users per Group',
+      data: tagusers,
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(244,164,96)',
+        'rgb(255,165,0)',
+        'rgb(127,255,0)',
+        'rgb(32,178,170)',
+        'rgb(75,0,130)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 4
+    }]
+   };
+
+   new Chart(ctx1, {
+      type: 'pie',
+      data: datas
+      // options: {
+      //   scales: {
+      //     y: {
+      //       beginAtZero: true
+      //     }
+      //   }
+      // }
+   });
+</script>
 {{/inline}}
 {{/admin}}
