@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -101,4 +101,24 @@ export class AppController {
     return {events}
   }
 
+  @Get('/register')
+  @Render('register')
+  register() {
+    return {
+      title: 'Register',
+    };
+  }
+
+  // @Post("/user/register")
+  // async registerSubmit(@Body() newUser: cr){
+
+  //}
+
+  @Get('/login')
+  @Render('login')
+  login() {
+    return {
+      title: 'Login',
+    };
+  }
 }
