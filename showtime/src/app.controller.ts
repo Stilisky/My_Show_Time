@@ -165,6 +165,7 @@ export class AppController {
   @Redirect('/admin/events')
   async eventsubmit(@Body() addevent: CreateEventDto) {
     this.eventService.createEvent(addevent);
+    //add event to tag
     const events = await this.eventService.findAll()
     return {events}
   }
@@ -215,5 +216,10 @@ export class AppController {
     return {
       title: 'Login',
     };
+  }
+
+  @Get('/toktok')
+  async toktok() {
+    return await this.appService.bookConcertTicket("64e6d53db7e27d163ba0b56c", "64e73b797a0b200af27533f4")
   }
 }
