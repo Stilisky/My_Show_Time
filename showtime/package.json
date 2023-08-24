@@ -24,6 +24,8 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^10.0.0",
+    "chart.js": "^4.3.3",
+    "gentelella": "^1.4.0",
     "hbs": "^4.2.0",
     "hbs-utils": "^0.0.4",
     "mongoose": "^7.4.3",

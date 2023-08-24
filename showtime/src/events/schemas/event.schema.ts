@@ -23,6 +23,9 @@ export class Event {
    @Prop()
    picture: string
 
+   @Prop({default:false, required: false})
+   status: boolean
+
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ticket'}] })
    tickets: Ticket[]
 

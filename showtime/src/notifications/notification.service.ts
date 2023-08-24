@@ -27,5 +27,8 @@ export class NotificationService {
       return this.notifModel.findByIdAndDelete(id).exec();
    }
 
+   async getNumberOfNotif(): Promise<number> {
+      return await this.notifModel.count();
+   }   
    
 }
