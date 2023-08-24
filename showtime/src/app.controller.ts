@@ -113,7 +113,7 @@ export class AppController {
 
   @Post("/update/tag/:id")
   async updateTagP(@Param("id") id: string, @Body() upTag: UpdateTagDto, @Res() res: Response) {
-     await this.tagService.updateTag(id, upTag)
+    await this.tagService.updateTag(id, upTag)
     const tags = await this.tagService.findTags();
     res.render("admintags.hbs", {tags})
   }

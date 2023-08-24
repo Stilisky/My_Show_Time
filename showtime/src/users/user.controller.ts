@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render } from '@nestjs/common';
+import { Response} from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
 import { UpdateUserDto } from './dto/updateUserDto';
 import * as bcrypt from 'bcrypt';
+//import { get } from 'superagent';
 
 @Controller("users")
 export class UserController {
@@ -23,13 +24,34 @@ export class UserController {
       return this.userService.getNumberOfUser()
    }
 
+
+   @Post('/login')
+   async login(@Body() existingUser: CreateUserDto,
+      @Res() res: Response,
+      //@Session() session: Record<string, any>,
+      ) {
+      const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
+      // Redirect to /home if login is successful
+      if (user) {
+         return res.redirect('/');
+      }
+      else {
+         res.render('user/login', { error: 'Email or password invalid! ' });
+      }
+   }
+
+   @Get('/login')
+   @Render('users/login')
+   getLogin(@Query('error') error: string) {
+   return {error};
+   }
+
    //Create new user
    @Post('/register')
    async saveUser(
       @Body() newuser: CreateUserDto,
       @Res() res: Response,
    ) {
-
       //Hash password
       const password = newuser.password;
       const saltRounds = 12;
@@ -46,7 +68,7 @@ export class UserController {
          res.render('register.hbs', { errorMessage: 'Registration failed. Email or username invalid! ' });
       }
    }
-   
+
    @Get(":id")
    async getUserById(@Param("id") id: string): Promise<User> {
       return this.userService.findUserById(id);
@@ -63,7 +85,4 @@ export class UserController {
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
    }
-
-   
-
 }
