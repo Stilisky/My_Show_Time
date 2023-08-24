@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
@@ -16,6 +16,12 @@ export class AppController {
       title: 'Register',
     };
   }
+
+  // @Post("/user/register")
+  // async registerSubmit(@Body() newUser: cr){
+
+  //}
+
   @Get('/login')
   @Render('login')
   login() {

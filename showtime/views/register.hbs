@@ -66,7 +66,7 @@
                 <div class="container mx-auto py-8">
                     <form id="registration-form" action="/users/register" method="POST">
                         <div
-                            class="w-5/6 lg:w-2/4 mx-auto rounded shadow opacity-90 drop-shadow-2xl bg-gray-50 dark:bg-gray-900 ">
+                            class="w-5/6 lg:w-2/4 mx-auto rounded opacity-90 drop-shadow-2xl bg-gray-50 dark:bg-gray-900 ">
                             <div class="py-4 px-8 text-white text-xl border-b border-grey-lighter justify-center">
                                 Register for a free
                                 account
@@ -85,7 +85,7 @@
                                     <div class="w-1/2 ml-1">
                                         <label class="block text-white text-sm font-bold mb-2" for="last_name">Last
                                             Name</label>
-                                        <input class="appearance-none border rounded w-full py-2 px-3 text-white"
+                                        <input class="appearance-none border rounded w-full py-2 px-3 text-black"
                                             id="last_name" type="text" placeholder="Your last name">
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                     <div class="w-1/2 ml-1">
                                         <label class="block text-white text-sm font-bold mb-2" for="last_name">Phone
                                             Number</label>
-                                        <input class="appearance-none border rounded w-full py-2 px-3 text-white"
+                                        <input class="appearance-none border rounded w-full py-2 px-3 text-black"
                                             id="Phone_number" type="tel" placeholder="Your phone number">
                                     </div>
                                 </div>
@@ -111,15 +111,15 @@
                                 </div>
                                 <div class="mb-4">
                                     <label class="block text-white text-sm font-bold mb-2" for="email">Email</label>
-                                    <input class="appearance-none border rounded w-full py-2 px-3 text-white" id="email"
+                                    <input class="appearance-none border rounded w-full py-2 px-3 text-black" id="email"
                                         type="email" placeholder="Enter a valid email address">
                                 </div>
                                 <div class="mb-4">
                                     <label class="block text-white text-sm font-bold mb-2"
                                         for="password">Password</label>
-                                    <input class="appearance-none border rounded w-full py-2 px-3 text-white"
+                                    <input class="appearance-none border rounded w-full py-2 px-3 text-black"
                                         id="password" type="password" placeholder="A secure password">
-                                    <div class="py-2" x-data="{ show: true }">
+                                    {{!--  <div class="py-2" x-data="{ show: true }">
                                         <span class="px-1 text-sm text-gray-600">Password</span>
                                         <div class="relative">
                                             <input placeholder="" :type="show ? 'password' : 'text'" class="text-md block px-3 py-2 rounded-lg w-full 
@@ -149,8 +149,7 @@
 
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div> --}}
                                     <p class="text-white text-xs mt-1">At least 6 characters</p>
                                 </div>
                                 <div class="flex items-center justify-center mt-8">
