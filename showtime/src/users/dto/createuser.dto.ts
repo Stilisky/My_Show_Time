@@ -9,5 +9,5 @@ export class CreateUserDto {
    country: string;
    birthday: string;
    picture: string;
-   is_admin: string;
+   is_admin: boolean;
 }

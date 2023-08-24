@@ -24,7 +24,7 @@ export class User {
    password: string
 
    @Prop()
-   phone:number
+   phone:string
 
    @Prop({default: "Benin"})
    country: string

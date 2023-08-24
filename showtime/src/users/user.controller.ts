@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe, Res, BadRequestException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
@@ -26,26 +26,24 @@ export class UserController {
    //Create new user
    @Post('/register')
    async saveUser(
-      @Body(new ValidationPipe()) newuser: CreateUserDto,
+      @Body() newuser: CreateUserDto,
       @Res() res: Response,
-   ): Promise<void> {
+   ) {
+
+      //Hash password
       const password = newuser.password;
       const saltRounds = 12;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       newuser.password = hashedPassword;
 
-      try {
-         const createdUser = await this.userService.createUser(newuser);
+      const createdUser = await this.userService.createUser(newuser);
 
-         // Redirect to "favTag" page upon successful registration
-         if (createdUser) {
-            res.redirect('/favTag');
-         } else {
-            throw new BadRequestException('User registration failed.');
-         }
-      } catch (error) {
-         // Handle registration failure and display error message
-         res.render('register.hbs', { errorMessage: 'Registration failed. Please try again.' });
+      // Redirect to "favTag" page upon successful registration
+      if (createdUser) {
+         // res.redirect('/favTag');
+         res.render('login.hbs');
+      } else {
+         res.render('register.hbs', { errorMessage: 'Registration failed. Email or username invalid! ' });
       }
    }
    
