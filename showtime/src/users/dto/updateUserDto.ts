@@ -6,7 +6,7 @@ export class UpdateUserDto {
    email: string;
    phone: number;
    country: string;
-   birthdate: string;
+   birthday: string;
    picture: string;
    is_admin: boolean;
 }
