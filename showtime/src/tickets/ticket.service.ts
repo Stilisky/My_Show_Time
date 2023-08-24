@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Ticket } from './schemas/ticket.schema';
 import { Model } from 'mongoose';
 import { CreateTicketDto } from './dto/createTicketDto';
+import { UpdateTicketDto } from './dto/updateTicketDto';
 
 @Injectable()
 export class TicketService {
@@ -21,9 +22,14 @@ export class TicketService {
       return ticket;
    }
 
-   async createTicket(addTicket: CreateTicketDto): Promise<Ticket>{
-      const newTicket = new this.ticketModel(addTicket);
-      return newTicket.save();
+   async createTicket(addTicket: CreateTicketDto) {
+      const newTicket = new this.ticketModel(addTicket).save();
+      // const result = newTicket;
+      return newTicket;
+   }
+
+   async updateTicket(id: string, upTicket: UpdateTicketDto) {
+      return await this.ticketModel.findByIdAndUpdate(id, upTicket)
    }
 
    async deleteTicket(id: string): Promise<Ticket> {

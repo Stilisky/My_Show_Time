@@ -14,6 +14,9 @@ export class Ticket {
    @Prop()
    qr_code: string
 
+   @Prop({default: true})
+   is_valid: boolean
+
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], required: true })
    user: User
 

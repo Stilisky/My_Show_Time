@@ -4,54 +4,28 @@
 <div class="h-screen p-6 bg-gray-100 flex items-center justify-center">
    <div class="container mx-auto">
       <div>
-         <h2 class="font-semibold text-xl text-gray-600">Register an Event</h2>
-         <p class="text-gray-500 mb-6">Welcome to the event creation page. Here,
+         <h2 class="font-semibold text-xl text-gray-600">Register a Group</h2>
+         <p class="text-gray-500 mb-6">Welcome to the group creation page. Here,
             you can add all the necessary
-            details to schedule and promote your upcoming event.</p>
+            details.</p>
 
          <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                <div class="text-gray-600">
-                  <p class="font-medium text-lg">Event Details</p>
+                  <p class="font-medium text-lg">Group Details</p>
                   <p>Please fill out all the fields.</p>
                </div>
                <div class="lg:col-span-2">
-                  <form action="/new/event" method="post">
+                  <form action="/new/tag" method="post">
                      <div
                         class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                         <div class="md:col-span-5">
-                           <label for="full_name">Event Name</label>
+                           <label for="full_name">Group Name</label>
                            <input type="text" name="name" id="full_name"
                               class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                               />
                         </div>
-                        <div class="md:col-span-2">
-                           <label for="city">Event category</label>
-                           <select name="tag" id="tag" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                              <option value="" selected disabled>Select an option</option>
-                              {{#each tags}}
-                                 <option value="{{ _id }}"> {{ name }} </option>
-                              {{/each }}
-                           </select>
-                        </div>
-                        <div class="md:col-span-5">
-                           <label for="email">Describe your event</label>
-                           <textarea name="description" id="email"
-                              class="h-20 border mt-1 rounded px-4 w-full bg-gray-50 resize-none"
-                              placeholder="Start writting ..."></textarea>
-                        </div>
-                        <div class="md:col-span-3">
-                           <label for="address">Event date</label>
-                           <input type="date" name="event_date" id="address"
-                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                              />
-                        </div>
-                        <div class="md:col-span-2">
-                           <label for="city">City</label>
-                           <input type="text" name="city" id="city"
-                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                              />
-                        </div>
+                        
                         <div class="md:col-span-5">
                            <label
                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

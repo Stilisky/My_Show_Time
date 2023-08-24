@@ -6,13 +6,18 @@ import { Tag } from './tags/schemas/tag.schema';
 import { EventService } from './events/event.service';
 import { UpdateUserDto } from './users/dto/updateUserDto';
 import { User } from './users/schemas/user.schema';
+// import { Ticket } from './tickets/schemas/ticket.schema';
+import { CreateTicketDto } from './tickets/dto/createTicketDto';
+import { TicketService } from './tickets/ticket.service';
+import * as qrcode from 'qrcode';
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly tagServ: TagService,
     private readonly userServ: UserService,
-    private readonly eventServ: EventService
+    private readonly eventServ: EventService,
+    private readonly ticketServ: TicketService,
   ) {}
   
   getHello(): string {
@@ -35,6 +40,13 @@ export class AppService {
     return tagup
   }
 
+  async addTicketToEvent(@Param("tick_id") tick_id: string, @Param("event_id") event_id: string) {
+    const ticket = await this.ticketServ.findTicketById(tick_id);
+    const event = await this.eventServ.findById(event_id)
+    event.tickets.push(ticket)
+    this.eventServ.updateEvent(event_id, event)
+  }
+
   async promote(@Param("id") id: string): Promise<User> {
     const user = await this.userServ.findUserById(id);
     if (user.is_admin == false) {
@@ -49,5 +61,38 @@ export class AppService {
   
   async deleteuser(@Param("id") id: string): Promise<User> {
     return await this.userServ.deleteUser(id)
+  }
+
+  async status(@Param("id") id: string) {
+    const event = await this.eventServ.findById(id)
+    if(event.status) {
+      event.status = false
+    } else {
+      event.status = true
+    }
+    this.eventServ.updateEvent(id, event)
+  }
+
+  async bookConcertTicket(@Param("event_id") event_id: string, @Param("user_id") user_id: string) {
+    const event = await this.eventServ.findById(event_id);
+    const user = await this.userServ.findUserById(user_id);
+    const createTicketDto = new CreateTicketDto();
+    createTicketDto.user = user;
+    createTicketDto.event = event;
+
+    const ticket = await this.ticketServ.createTicket(createTicketDto);
+    const id = ticket._id.toHexString()
+    const url = "http://localhost:3000/check_ticket/" + id 
+
+    try{
+      const qr = await qrcode.toDataURL(url)
+      ticket.qr_code = qr;
+    } catch (error) {
+
+    }
+
+    const up = await this.ticketServ.updateTicket(id, ticket)
+    this.addTicketToEvent(id, event_id);
+    return up;
   }
 }

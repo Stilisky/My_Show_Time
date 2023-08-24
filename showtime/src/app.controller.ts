@@ -1,13 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
 import { TicketService } from './tickets/ticket.service';
 import { NotificationService } from './notifications/notification.service';
 import { AppService } from './app.service';
-import { Response } from 'express';
 import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
+import { CreateEventDto } from './events/dto/createEvent.dto';
+import { UpdateEventDto } from './events/dto/updateEvent.dto';
+import { CreateTagDto } from './tags/dto/createTagDto.dto';
 
 @Controller()
 export class AppController {
@@ -90,39 +92,102 @@ export class AppController {
   }
 
   @Post("/promote/:id")
-  async promote(@Param("id") id: string, @Res() res: Response) {
+  @Redirect('/admin/users')
+  async promote(@Param("id") id: string) {
     this.appService.promote(id)
-    // const users = await this.userService.findAllUsers();
-    res.render("adminusers.hbs")
+    const users = await this.userService.findAllUsers();
+    return {users}
   }
 
   @Post("/delete/user/:id")
-  async delete(@Param("id") id: string, @Res() res: Response) {
+  @Redirect('/admin/users')
+  async delete(@Param("id") id: string) {
     await this.appService.deleteuser(id)
     const users = await this.userService.findAllUsers();
-    res.render("adminusers.hbs", {users})
+    return {users}
   }
 
   @Get("/update/tag/:id")
-  @Render("updateTag.hbs")
+  @Render("updatetag")
   async updateTag(@Param("id") id: string) {
-    const tag = this.tagService.findTag(id)
-    // const users = await this.userService.findAllUsers();
+    const tag = await this.tagService.findTag(id);
     return {tag}
   }
 
   @Post("/update/tag/:id")
-  async updateTagP(@Param("id") id: string, @Body() upTag: UpdateTagDto, @Res() res: Response) {
-     await this.tagService.updateTag(id, upTag)
+  @Redirect('/admin/tags')
+  async updateTagP(@Param("id") id: string, @Body() upTag: UpdateTagDto) {
+    await this.tagService.updateTag(id, upTag)
     const tags = await this.tagService.findTags();
-    res.render("admintags.hbs", {tags})
+    return {tags}
+  }
+
+  @Get("/update/event/:id")
+  @Render("updateevent.hbs")
+  async updateEvent(@Param("id") id: string) {
+    const event = await this.eventService.findById(id)
+    const tags = await this.tagService.findTags()
+    return {event, tags}
+  }
+
+  @Post("/update/event/:id")
+  @Redirect('/admin/events')
+  async updateEventSubP(@Param("id") id: string, @Body() upEvt: UpdateEventDto) {
+    await this.eventService.updateEvent(id, upEvt)
+    const events = await this.eventService.findAll()
+    return {events}
+  }
+
+  @Post("/delete/event/:id")
+  @Redirect('/admin/events')
+  async deleteEvent(@Param("id") id: string) {
+    this.eventService.delete(id)
+    const events = await this.eventService.findAll();
+    return {events}
   }
 
   @Post("/delete/tag/:id")
-  async deleteTag(@Param("id") id: string, @Res() res: Response) {
+  @Redirect('/admin/tags')
+  async deleteTag(@Param("id") id: string) {
     this.tagService.deleteTag(id)
     const tags = await this.tagService.findTags();
-    res.render("admintags.hbs", {tags})
+    return {tags}
+  }
+
+  @Get("/new/event")
+  @Render('addevent.hbs')
+  async eventform() {
+    const tags = await this.tagService.findTags()
+    return {tags}; 
+  }
+
+  @Post("/new/event")
+  @Redirect('/admin/events')
+  async eventsubmit(@Body() addevent: CreateEventDto) {
+    this.eventService.createEvent(addevent);
+    //add event to tag
+    const events = await this.eventService.findAll()
+    return {events}
+  }
+
+  @Get("/new/tag")
+  @Render('addtag.hbs')
+  async tagform() {}
+
+  @Post("/new/tag")
+  @Redirect('/admin/tags')
+  async tagsubmit(@Body() addtag: CreateTagDto) {
+    this.tagService.createTag(addtag)
+    const tags = await this.tagService.findTags()
+    return {tags}
+  }
+
+  @Post("/event/status/:id")
+  @Redirect("/admin/events")
+  async eventStatus(@Param("id") id: string) {
+    this.appService.status(id)
+    const events = await this.eventService.findAll()
+    return {events}
   }
 
   @Get("/admin/events")
@@ -166,5 +231,10 @@ export class AppController {
     return {
       title: 'Login',
     };
+  }
+
+  @Get('/toktok')
+  async toktok() {
+    return await this.appService.bookConcertTicket("64e6d53db7e27d163ba0b56c", "64e73b797a0b200af27533f4")
   }
 }
