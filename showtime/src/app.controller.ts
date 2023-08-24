@@ -16,4 +16,18 @@ export class AppController {
       title: 'Dashboard',
     };
   }
+  @Get('/ticketdetails')
+  @Render('ticketdetails')
+  ticketdetails() {
+    return {
+      title: 'Dashboard',
+    };
+  }
+  @Get('/searchpage')
+  @Render('searchpage')
+  searchpage() {
+    return {
+      title: 'Dashboard',
+    };
+  }
 }
