@@ -10,6 +10,7 @@ import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
 import { CreateEventDto } from './events/dto/createEvent.dto';
 import { UpdateEventDto } from './events/dto/updateEvent.dto';
 import { CreateTagDto } from './tags/dto/createTagDto.dto';
+import { session } from 'passport';
 
 @Controller()
 export class AppController {
@@ -58,7 +59,7 @@ export class AppController {
   async searchpage() {
     const tags = await this.tagService.findTags()
     const events = await this.eventService.findAll()
-    return {title: 'Dashboard', tags, events};
+    return { title: 'Dashboard', tags, events };
   }
 
   @Post('/search')
@@ -115,7 +116,7 @@ export class AppController {
   @Render('admintags')
   async adminTags() {
     const tags = await this.tagService.findTags()
-    return {tags}
+    return { tags }
   }
 
   @Post("/promote/:id")
@@ -123,7 +124,7 @@ export class AppController {
   async promote(@Param("id") id: string) {
     this.appService.promote(id)
     const users = await this.userService.findAllUsers();
-    return {users}
+    return { users }
   }
 
   @Post("/delete/user/:id")
@@ -131,14 +132,14 @@ export class AppController {
   async delete(@Param("id") id: string) {
     await this.appService.deleteuser(id)
     const users = await this.userService.findAllUsers();
-    return {users}
+    return { users }
   }
 
   @Get("/update/tag/:id")
   @Render("updatetag")
   async updateTag(@Param("id") id: string) {
     const tag = await this.tagService.findTag(id);
-    return {tag}
+    return { tag }
   }
 
   @Post("/update/tag/:id")
@@ -146,7 +147,7 @@ export class AppController {
   async updateTagP(@Param("id") id: string, @Body() upTag: UpdateTagDto) {
     await this.tagService.updateTag(id, upTag)
     const tags = await this.tagService.findTags();
-    return {tags}
+    return { tags }
   }
 
   @Get("/update/event/:id")
@@ -154,7 +155,7 @@ export class AppController {
   async updateEvent(@Param("id") id: string) {
     const event = await this.eventService.findById(id)
     const tags = await this.tagService.findTags()
-    return {event, tags}
+    return { event, tags }
   }
 
   @Post("/update/event/:id")
@@ -162,7 +163,7 @@ export class AppController {
   async updateEventSubP(@Param("id") id: string, @Body() upEvt: UpdateEventDto) {
     await this.eventService.updateEvent(id, upEvt)
     const events = await this.eventService.findAll()
-    return {events}
+    return { events }
   }
 
   @Post("/delete/event/:id")
@@ -170,7 +171,7 @@ export class AppController {
   async deleteEvent(@Param("id") id: string) {
     this.eventService.delete(id)
     const events = await this.eventService.findAll();
-    return {events}
+    return { events }
   }
 
   @Post("/delete/tag/:id")
@@ -178,14 +179,14 @@ export class AppController {
   async deleteTag(@Param("id") id: string) {
     this.tagService.deleteTag(id)
     const tags = await this.tagService.findTags();
-    return {tags}
+    return { tags }
   }
 
   @Get("/new/event")
   @Render('addevent.hbs')
   async eventform() {
     const tags = await this.tagService.findTags()
-    return {tags}; 
+    return { tags };
   }
 
   @Post("/new/event")
@@ -194,19 +195,19 @@ export class AppController {
     this.eventService.createEvent(addevent);
     //add event to tag
     const events = await this.eventService.findAll()
-    return {events}
+    return { events }
   }
 
   @Get("/new/tag")
   @Render('addtag.hbs')
-  async tagform() {}
+  async tagform() { }
 
   @Post("/new/tag")
   @Redirect('/admin/tags')
   async tagsubmit(@Body() addtag: CreateTagDto) {
     this.tagService.createTag(addtag)
     const tags = await this.tagService.findTags()
-    return {tags}
+    return { tags }
   }
 
   @Post("/event/status/:id")
@@ -214,7 +215,7 @@ export class AppController {
   async eventStatus(@Param("id") id: string) {
     this.appService.status(id)
     const events = await this.eventService.findAll()
-    return {events}
+    return { events }
   }
 
   @Get("/admin/events")
@@ -239,11 +240,22 @@ export class AppController {
     };
   }
 
+  @Get('/addnotification')
+  @Render('addnotification')
+  addnotification() {
+    return {
+      title: 'Add notification',
+    };
+  }
+
   @Get('/notification')
   @Render('notification')
-  notification() {
+  notification(@Session() session) {
+    const user_Id = session.user._Id
+    const notifications =  this.userService.findUserById(user_Id)
+    console.log(notifications)
     return {
-      title: 'Notification',
+      title: 'Notification', notifications
     };
   }
 
