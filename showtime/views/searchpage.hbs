@@ -1,6 +1,6 @@
 {{#> app}}
 {{#*inline "content"}}
-<nav class="border-gray-200 u-hero-gradient">
+{{!-- <nav class="border-gray-200 u-hero-gradient">
     <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center">
           <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
@@ -66,6 +66,65 @@
                         Events</a>
                 </li>
             </ul>
+        </div>
+    </div>
+</nav> --}}
+<nav class="border-gray-200 dark:bg-gray-900 bg-black">
+    <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" class="flex items-center">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
+            Bi</span>
+        </a>
+        <div class="flex md:order-2">
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul
+                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 mr-6 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                <a href="/" class="transition-transform duration-100 ease-in-out text-white">Home</a>
+                </li>
+                <li>
+                <a href="/allEvents" class="transition-transform duration-100 ease-in-out text-white">See all events</a>
+                </li>
+                {{!-- <li>
+                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Services</a>
+                </li> --}}
+                <li>
+                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Contact</a>
+                </li>
+            </ul>
+            <a href="/login">
+                <button type="button"
+                class="
+                relative
+                flex
+                items-center
+                font-medium
+                leading-tight
+                select-none
+                group
+                transition-all
+                duration-300
+                ease-in-out
+                focus:ring focus:ring-opacity-50
+                outline-none
+                focus:outline-none
+                pt-4
+                pb-4
+                text-[#08e2ff] border-[#08e2ff] hover:bg-white hover:text-black hover:border-white focus:bg-white focus:border-white hover:text-ternary focus:text-ternary border bg-transparent text-center rounded-full px-8 text-sm">
+                <span class="transition-transform duration-100 ease-in-out">Connexion</span>
+                </button>
+            </a>
+            </div>
+
+            <button data-collapse-toggle="navbar-cta" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-cta" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+            </button>
         </div>
     </div>
 </nav>
