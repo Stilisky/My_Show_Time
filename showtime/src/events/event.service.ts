@@ -31,5 +31,9 @@ export class EventService {
    async delete(id: string): Promise<Event> {
       return this.eventModel.findByIdAndDelete(id)
    }
+
+   async getNumberOfEvent(): Promise<number> {
+      return await this.eventModel.count();
+   } 
    
 }

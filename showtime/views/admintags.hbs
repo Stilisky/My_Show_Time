@@ -1,0 +1,70 @@
+{{#> admin}}
+{{#*inline "content"}}
+<div class="w-100">
+   <div class="row justify-content-center">
+      <div class="col-xl-5 col-md-6 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                     <div
+                        class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        New Tag ?</div>
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/new/tag">
+                           <input type="button" value="Addet It!" class="btn btn-info">
+                        </a>
+                     </div>
+                  </div>
+                  <div class="col-auto">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z"></path></svg>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> <br>
+   <div class="row">
+      <div class="col-xl-12 col-md-12 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="mr-2">
+                     <div class="text-xs font-weight-bold mb-1 text-center">
+                        <h2 class="text-primary text-uppercase">Tag Resume</h2>
+                     </div>
+                     <table class="w-100 table table-striped table-bordered">
+                        <thead class="text-center">
+                           <th class="w-25">Name</th>
+                           <th class="w-25">Total Users Fan</th>
+                           <th class="w-15">Total Events</th>
+                           <th class="w-10">Update</th>
+                           <th class="w-10">Delete</th>
+                        </thead>
+                        <tbody>
+                           {{#each tags }}
+                           <tr class="mb-4 text-center">
+                              <td class="text-center"> {{name}} </td>
+                              <td> {{users.length}} </td>
+                              <td class="text-center">{{events.length}}</td>
+                              <td class="text-center">
+                                 <form action="/update/tag/{{_id}}" method="get">
+                                    <input type="submit" value="Update" class="btn btn-success opacity-90">
+                                 </form>
+                              </td>
+                              <td>
+                                 <form action="/delete/tag/{{_id}}" method="post">
+                                    <input type="submit" value="Delete" class="btn btn-danger opacity-90">
+                                 </form>
+                              </td>
+                           </tr>
+                           {{/each}}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+</div>
+{{/inline}}
+{{/admin}}

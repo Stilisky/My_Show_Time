@@ -1,0 +1,60 @@
+{{#> admin}}
+{{#*inline "content"}}
+<div class="w-100">
+   <div class="row">
+      <div class="col-xl-12 col-md-12 mb-4">
+         <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+               <div class="row no-gutters align-items-center">
+                  <div class="mr-2">
+                     <div class="text-xs font-weight-bold mb-1 text-center">
+                        <h2 class="text-primary text-uppercase">Users Resume</h2>
+                     </div>
+                     <table class="w-100 table table-striped table-bordered">
+                        <thead class="text-center">
+                           <th class="w-5">FirstName</th>
+                           <th class="w-25">LastName</th>
+                           <th class="w-25">Email</th>
+                           <th class="w-10">Phone</th>
+                           <th class="w-10">Birthday</th>
+                           <th class="w-15">Country</th>
+                           <th class="w-10">Promote</th>
+                           <th class="w-10">Delete</th>
+                        </thead>
+                        <tbody>
+                           {{#each users }}
+                           <tr class="mb-4 text-center">
+                              <td class="text-center"> {{firstname}} </td>
+                              <td> {{lastname}} </td>
+                              <td class="text-center">{{email}}</td>
+                              <td>{{phone}}</td>
+                              <td>{{birthday}}</td>
+                              <td>{{country}}</td>
+                              <td>
+                                 {{#if is_admin }}
+                                 <form action="/promote/{{_id}}" method="post">
+                                    <input type="submit" value="Demote" class="btn btn-success opacity-90">
+                                 </form>
+                                 {{else}}
+                                 <form action="/promote/{{_id}}" method="post">
+                                    <input type="submit" value="Promote" class="btn btn-primary opacity-90">
+                                 </form>
+                                 {{/if}}
+                              </td>
+                              <td>
+                                 <form action="/delete/user/{{_id}}" method="post">
+                                    <input type="submit" value="Delete" class="btn btn-danger opacity-90">
+                                 </form>
+                              </td>
+                           </tr>
+                           {{/each}}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   {{/inline}}
+   {{/admin}}

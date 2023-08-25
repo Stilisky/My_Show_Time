@@ -1,0 +1,121 @@
+{{#> app}}
+{{#*inline "content"}}
+<section class="bg-fixed h-screen bg-[url('img/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg')] bg-cover relative">
+    <div class="font-sans antialiased bg-grey-lightest">
+        <div class="w-full bg-grey-lightest" style="padding-top: 4rem;">
+            <div class="container mx-auto py-8">
+                <form id="registration-form" action="/users/register" method="POST">
+                    <div class="w-5/6 lg:w-2/4 mx-auto rounded opacity-90 drop-shadow-2xl bg-black dark:bg-gray-900 ">
+                        <div class="py-4 px-8 flex text-white text-xl border-b border-grey-lighter justify-between">
+                            Register for a free
+                            account
+                            <a href="/">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="py-4 px-8">
+                            <div id="error-messages" class="text-red-500">
+                                {{ errorMessage }}
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="w-1/2 mr-1">
+                                    <label class="block text-white text-sm font-bold mb-2" for="first_name">First
+                                        Name</label>
+                                    <input
+                                        class="appearance-none border rounded w-full py-2 px-3 bg-transparent text-white"
+                                        id="first_name" name="firstname" type="text" placeholder="Your first name">
+                                </div>
+                                <div class="w-1/2 ml-1">
+                                    <label class="block text-white text-sm font-bold mb-2" for="last_name">Last
+                                        Name</label>
+                                    <input
+                                        class="appearance-none border rounded w-full bg-transparent py-2 px-3 text-white"
+                                        id="last_name" name="lastname" type="text" placeholder="Your last name">
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="w-1/2 mr-1">
+                                    <label class="block text-white text-sm font-bold mb-2"
+                                        for="first_name">Username</label>
+                                    <input
+                                        class="appearance-none border rounded w-full bg-transparent py-2 px-3 text-white"
+                                        id="username" name="username" type="text" placeholder="Your Username">
+                                </div>
+                                <div class="w-1/2 ml-1">
+                                    <label class="block text-white text-sm font-bold mb-2" for="last_name">Phone
+                                        Number</label>
+                                    <input
+                                        class="appearance-none border rounded w-full bg-transparent py-2 px-3 text-white"
+                                        id="Phone_number" name="phone" type="tel" placeholder="Your phone number">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-white text-sm font-bold mb-2" for="birthday">Birthday</label>
+                                <input class="appearance-none border rounded bg-transparent w-full py-2 px-3 text-white"
+                                    id="birthday" name="birthday" type="date" placeholder="Your birthdate">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-white text-sm font-bold mb-2" for="email">Email</label>
+                                <input class="appearance-none border rounded w-full py-2 px-3 bg-transparent text-white"
+                                    id="email" type="email" name="email" placeholder="Enter a valid email address">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-white text-sm font-bold mb-2" for="password">Password</label>
+                                <input class="appearance-none border rounded w-full py-2 bg-transparent px-3 text-white"
+                                    id="password" name="password" type="password" placeholder="A secure password">
+                                {{!-- <div class="py-2" x-data="{ show: true }">
+                                    <span class="px-1 text-sm text-gray-600">Password</span>
+                                    <div class="relative">
+                                        <input placeholder="" :type="show ? 'password' : 'text'" class="text-md block px-3 py-2 rounded-lg w-full 
+                bg-white border-2 border-gray-300 placeholder-gray-600 shadow-md
+                focus:placeholder-gray-500
+                focus:bg-white 
+                focus:border-gray-600  
+                focus:outline-none">
+                                        <div
+                                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+
+                                            <svg class="h-6 text-gray-700" fill="none" @click="show = !show"
+                                                :class="{'hidden': !show, 'block':show }"
+                                                xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512">
+                                                <path fill="currentColor"
+                                                    d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
+                                                </path>
+                                            </svg>
+
+                                            <svg class="h-6 text-gray-700" fill="none" @click="show = !show"
+                                                :class="{'block': !show, 'hidden':show }"
+                                                xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 512">
+                                                <path fill="currentColor"
+                                                    d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z">
+                                                </path>
+                                            </svg>
+
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <p class="text-white text-xs mt-1">At least 6 characters</p>
+                            </div>
+                            <div class="flex items-center justify-center mt-8">
+                                <button type="submit"
+                                    class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sign
+                                    up</button>
+                            </div>
+                            <p class="text-center my-4">
+                                <a href="/login" class="text-white text-sm no-underline hover:text-white">I
+                                    already
+                                    have an account !</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{{/inline}}
+{{/app}}

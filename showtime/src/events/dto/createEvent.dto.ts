@@ -2,6 +2,9 @@
 export class CreateEventDto {
    name: string;
    description: string;
-   release_date: string;
+   event_date: string;
+   status: boolean;
+   price: number;
+   organisator: string;
    picture: string;
 }

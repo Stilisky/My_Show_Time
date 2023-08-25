@@ -20,8 +20,20 @@ export class Event {
    @Prop({required: true})
    event_date: string
 
+   @Prop({required: true})
+   city: string
+
+   @Prop({ required: true })
+   organisator: string
+
+   @Prop({required: true})
+   price: number
+
    @Prop()
    picture: string
+
+   @Prop({default:false, required: false})
+   status: boolean
 
    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ticket'}] })
    tickets: Ticket[]

@@ -1,0 +1,93 @@
+{{#> app}}
+{{#*inline "content"}}
+<!-- component -->
+<div class="h-screen p-6 bg-gray-100 flex items-center justify-center">
+   <div class="container mx-auto">
+      <div>
+         <h2 class="font-semibold text-xl text-gray-600">Register an Event</h2>
+         <p class="text-gray-500 mb-6">Welcome to the event creation page. Here,
+            you can add all the necessary
+            details to schedule and promote your upcoming event.</p>
+
+         <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+               <div class="text-gray-600">
+                  <p class="font-medium text-lg">Event Details</p>
+                  <p>Please fill out all the fields.</p>
+               </div>
+               <div class="lg:col-span-2">
+                  <form action="/new/event" method="post">
+                     <div
+                        class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                        <div class="md:col-span-5">
+                           <label for="full_name">Event Name</label>
+                           <input type="text" name="name" id="full_name"
+                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                        </div>
+                        <div class="md:col-span-2">
+                           <label for="city">Event category</label>
+                           <select name="tag" id="tag" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
+                              <option value="" selected disabled>Select an option</option>
+                              {{#each tags}}
+                                 <option value="{{ _id }}"> {{ name }} </option>
+                              {{/each }}
+                           </select>
+                        </div>
+                        <div class="md:col-span-2">
+                           <label for="price">Price</label>
+                           <input type="number" name="price" id="price"
+                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                        </div>
+                        <div class="md:col-span-5">
+                           <label for="email">Describe your event</label>
+                           <textarea name="description" id="email"
+                              class="h-20 border mt-1 rounded px-4 w-full bg-gray-50 resize-none"
+                              placeholder="Start writting ..."></textarea>
+                        </div>
+                        <div class="md:col-span-3">
+                           <label for="address">Event date</label>
+                           <input type="date" name="event_date" id="address"
+                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                        </div>
+                        <div class="md:col-span-2">
+                           <label for="city">City</label>
+                           <input type="text" name="city" id="city"
+                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                        </div>
+                        <div class="md:col-span-5">
+                           <label
+                              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              for="default_size">Default Picture</label>
+                           <input
+                              class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                              id="default_size" type="file" name="picture">
+                        </div>
+                        <div class="md:col-span-5 text-right">
+                           <div class="inline-flex items-end">
+                              <button type="submit"
+                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <a href="#"
+         class="md:absolute bottom-0 right-0 p-4 float-right">
+         <img
+            src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-3.svg"
+            alt="Buy Me A Coffee"
+            class="transition-all rounded-full w-14 -rotate-45 hover:shadow-sm shadow-lg ring hover:ring-4 ring-white">
+      </a>
+   </div>
+</div>
+
+{{/inline}}
+{{/app}}
