@@ -69,6 +69,14 @@ export class AppController {
     }
   }
 
+  @Get('/favtags')
+  @Render('favtags')
+  favtags() {
+    return {
+      title: 'Dashboard',
+    };
+  }
+
   @Get("/dashboard")
   @Render("dash")
   async dashboard() {
