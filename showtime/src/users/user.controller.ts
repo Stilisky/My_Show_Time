@@ -34,7 +34,7 @@ export class UserController {
       const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
       // Redirect to /home if login is successful
       if (user) {
-         session["user"] = user
+         session["user"] = user.email
          return res.redirect('/');
       }
       else {
