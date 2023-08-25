@@ -72,10 +72,12 @@
                                 account
                             </div>
                             <div class="py-4 px-8">
-                                <div id="error-messages" class="text-red-500">
-                                    {{ errorMessage }}
+{{!--                                 {{#if error}}
+ --}}                                <div id="error-messages" class="text-red-500">
+                                    {{ errorMessages }}
                                 </div>
-                                <div class="flex mb-4">
+{{!--                                 {{/if}}
+ --}}                                <div class="flex mb-4">
                                     <div class="w-1/2 mr-1">
                                         <label class="block text-white text-sm font-bold mb-2" for="first_name">First
                                             Name</label>
@@ -119,7 +121,7 @@
                                         for="password">Password</label>
                                     <input class="appearance-none border rounded w-full py-2 px-3 text-black"
                                         id="password" name="password" type="password" placeholder="A secure password">
-                                    {{!--  <div class="py-2" x-data="{ show: true }">
+                                    {{!-- <div class="py-2" x-data="{ show: true }">
                                         <span class="px-1 text-sm text-gray-600">Password</span>
                                         <div class="relative">
                                             <input placeholder="" :type="show ? 'password' : 'text'" class="text-md block px-3 py-2 rounded-lg w-full 

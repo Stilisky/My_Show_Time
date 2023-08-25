@@ -50,6 +50,13 @@ export class AppController {
       title: 'Dashboard',
     };
   }
+  @Get('/favtags')
+  @Render('favtags')
+  favtags() {
+    return {
+      title: 'favtags',
+    };
+  }
 
   @Get("/dashboard")
   @Render("dash")
@@ -150,4 +157,5 @@ export class AppController {
       title: 'Login',
     };
   }
+  
 }
