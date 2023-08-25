@@ -4,5 +4,6 @@ export class UpdateEventDto {
    description: string;
    event_date: string;
    status: boolean;
+   price: number;
    picture: string;
 }

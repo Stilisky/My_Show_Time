@@ -34,6 +34,12 @@
                               {{/each }}
                            </select>
                         </div>
+                        <div class="md:col-span-2">
+                           <label for="price">Price</label>
+                           <input type="number" name="price" id="price"
+                              class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              value="{{ event.price }}"/>
+                        </div>
                         <div class="md:col-span-5">
                            <label for="email">Describe your event</label>
                            <textarea name="description" id="email"

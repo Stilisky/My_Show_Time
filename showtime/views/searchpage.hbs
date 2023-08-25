@@ -2,9 +2,9 @@
 {{#*inline "content"}}
 <nav class="border-gray-200 u-hero-gradient">
     <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com/" class="flex items-center">
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-white">Alpha's
-                Bi</span>
+        <a href="/" class="flex items-center">
+          <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
+            Bi</span>
         </a>
         <div class="flex items-center md:order-2 space-x-3.5">
             <a href="/notification">
@@ -61,7 +61,7 @@
                         aria-current="page">Dashboard</a>
                 </li>
                 <li>
-                    <a href="/searchpage"
+                    <a href="/allEvents"
                         class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">All
                         Events</a>
                 </li>
@@ -73,19 +73,18 @@
     <div class="h-full w-full absolute z-10 bg-[#00000092]">
         <div class="container mx-auto">
             <div class="flex items-center justify-center pt-24">
-                <form action="">
+                <form action="/search" method="post">
                     <div class="flex mt-20">
-                        <select id="countries"
+                        <select id="countries" name="tag"
                             class="block w-1/4 mt-2 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
-                        <option selected>Genre</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
+                            <option selected>Genre</option>
+                            {{#each tags}}
+                            <option value="{{ _id }}"> {{ name }} </option>
+                            {{/each }}
                         </select>
-                        <input type="date" placeholder="John Doe"
+                        <input type="date" placeholder="Date" name="date"
                             class="block  mt-2 w-1/4 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
-                        <input type="text" placeholder="Keyword"
+                        <input type="text" placeholder="Keyword" name="keyword"
                             class="block  mt-2 w-1/4 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
                         <button type="submit"
                             class="flex justify-center mt-2 w-1/4 bg-[#635bff] px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
@@ -112,58 +111,15 @@
                 asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them.</p>
         </div>
         <div class="flex flex-wrap -m-2">
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">Concerts</h2>
+            {{#each tags}}
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
+                        <div class="flex-grow flex justify-center items-center">
+                            <h2 class="text-gray-900 title-font font-medium"> {{ name }} </h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">Festivals</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">
-                            Exhibitions
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">
-                            Workshops & Seminars
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">
-                            Networking Events
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                    <div class="flex-grow flex justify-center items-center">
-                        <h2 class="text-gray-900 title-font font-medium">
-                            Fashion Shows
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+            {{/each }}
     </div>
     </div>
 </section>
@@ -171,69 +127,36 @@
     <div class="container px-5 py-24 mx-auto">
         <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Pitchfork Kickstarter
-                    Taxidermy</h1>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Look events and book
+                    your Ticket</h1>
                 <div class="h-1 w-20 u-hero-gradient rounded"></div>
             </div>
             <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn
                 asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man
                 bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p>
         </div>
-        <div class="flex flex-wrap -m-4">
-            <div class="xl:w-1/3 md:w-1/2 h-[250px] p-4">
-                <!-- component -->
-                <div class="flex flex-col justify-center items-center max-w-sm mx-auto">
-                    <div style="background-image: url(/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg"
-                        class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"></div>
-                    <div class="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-                        <div class="py-1 text-center font-bold uppercase tracking-wide text-gray-800">Coding Party</div>
-                        <h2 class="text-center my-1">10/02/2000</h2>
+        <div class="flex flex-wrap space-y-10 -m-4">
+            {{#each events }}
+                <div class="xl:w-1/3 md:w-1/2 h-[250px] p-4 mb-10">
+                    <div class="flex flex-col justify-center items-center max-w-sm mx-auto mb-10">
+                        <div style="background-image: url(/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg"
+                            class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"></div>
+                        <div class="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
+                            <div class="py-1 text-center font-bold uppercase tracking-wide text-gray-800"> {{ name }} </div>
+                            <h2 class="text-center my-1">{{ event_date }}</h2>
 
-                        <div class="flex items-center justify-between py-2 px-3 bg-gray-400">
-                            <h1 class="text-gray-800 font-bold ">10.000XOF</h1>
-                            <button
-                                class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
-                                it</button>
+                            <div class="flex items-center justify-between py-2 px-3 bg-gray-400 mb-5">
+                                <h1 class="text-gray-800 font-bold ">{{ price }}XOF</h1>
+                                <a href="/details/events/{{ _id }}">
+                                    <button
+                                    class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
+                                    it</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="xl:w-1/3 md:w-1/2 h-fit p-4">
-                <!-- component -->
-                <div class="flex flex-col justify-center items-center max-w-sm mx-auto">
-                    <div style="background-image: url(/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg"
-                        class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"></div>
-                    <div class="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-                        <div class="py-1 text-center font-bold uppercase tracking-wide text-gray-800">Coding Party</div>
-                        <h2 class="text-center my-1">10/02/2000</h2>
-
-                        <div class="flex items-center justify-between py-2 px-3 bg-gray-400">
-                            <h1 class="text-gray-800 font-bold ">10.000XOF</h1>
-                            <button
-                                class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
-                                it</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="xl:w-1/3 md:w-1/2 h-[250px] p-4">
-                <!-- component -->
-                <div class="flex flex-col justify-center items-center max-w-sm mx-auto">
-                    <div style="background-image: url(/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg"
-                        class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"></div>
-                    <div class="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-                        <div class="py-1 text-center font-bold uppercase tracking-wide text-gray-800">Coding Party</div>
-                        <h2 class="text-center my-1">10/02/2000</h2>
-
-                        <div class="flex items-center justify-between py-2 px-3 bg-gray-400">
-                            <h1 class="text-gray-800 font-bold ">10.000XOF</h1>
-                            <button
-                                class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
-                                it</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{/each }}
         </div>
     </div>
 </section>
@@ -241,7 +164,7 @@
     <div class="mx-auto w-full p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
-                <a href="https://flowbite.com/" class="flex items-center">
+                <a href="/" class="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
                     <span
                         class="self-center text-2xl text-white font-semibold whitespace-nowrap dark:text-white">Alphas's
@@ -253,10 +176,10 @@
                     <h2 class="mb-6 text-sm font-semibold uppercase text-white dark:text-white">Resources</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4 text-white">
-                            <a href="https://flowbite.com/" class="hover:underline">Services</a>
+                            <a href="#" class="hover:underline">Services</a>
                         </li>
                         <li class="text-white">
-                            <a href="https://tailwindcss.com/" class="hover:underline">About Us</a>
+                            <a href="#" class="hover:underline">About Us</a>
                         </li>
                     </ul>
                 </div>
@@ -264,10 +187,10 @@
                     <h2 class="mb-6 text-sm font-semibold uppercase text-white dark:text-white">Follow us</h2>
                     <ul class="text-gray-500 dark:text-gray-400 font-medium">
                         <li class="mb-4 text-white">
-                            <a href="https://github.com/themesberg/flowbite" class="hover:underline ">Github</a>
+                            <a href="#" class="hover:underline ">Github</a>
                         </li>
                         <li>
-                            <a href="https://discord.gg/4eeurUVvTy" class="hover:underline text-white">Discord</a>
+                            <a href="#" class="hover:underline text-white">Discord</a>
                         </li>
                     </ul>
                 </div>

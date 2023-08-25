@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Res, Redirect, Session } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -45,12 +45,18 @@ export class AppController {
       title: 'Dashboard',
     };
   }
-  @Get('/searchpage')
+  @Get('/allEvents')
   @Render('searchpage')
-  searchpage() {
-    return {
-      title: 'Dashboard',
-    };
+  async searchpage() {
+    const tags = await this.tagService.findTags()
+    const events = await this.eventService.findAll()
+    return {title: 'Dashboard', tags, events};
+  }
+
+  @Post('/search')
+  @Render('searchresultpage')
+  async searchresult() {
+
   }
 
   @Get("/dashboard")
