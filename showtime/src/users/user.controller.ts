@@ -35,7 +35,7 @@ export class UserController {
       const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
       // Redirect to /home if login is successful
       if (user) {
-         session["user"] = user.email
+         session["user"] = user
          return res.redirect('/');
       }
       else {
@@ -76,7 +76,7 @@ export class UserController {
          } else {
             // Redirect to "favTag" page upon successful registration
             // res.redirect('/favTag');
-            res.redirect('login.hbs');
+            res.redirect('login');
          }
       }
       catch (error) {
