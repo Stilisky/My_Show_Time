@@ -30,15 +30,15 @@
 }
 
 .hero-r-dive-2 {
-  position: absolute;
-  top: 242px;
-  right: 496px;
+  position: relative;
+  top: 83px;
+  right: 131px;
 }
 
 .hero-r-dive-3 {
-  position: absolute;
-  top: 581px;
-  right: 496px;
+  position: relative;
+  top: 423px;
+  right: 378px;
 }
 
 .hero-r-dive-3-secure-div {
@@ -48,7 +48,7 @@
 
 
 .hero-r-point-2 {
-  position: absolute;
+  position: relative;
   top: -475px;
   right: -322px;
 }

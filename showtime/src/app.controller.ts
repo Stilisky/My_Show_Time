@@ -38,6 +38,14 @@ export class AppController {
       title: 'Dashboard',
     };
   }
+  @Get('/eventsdetails')
+  @Render('eventsdetails')
+  eventsdetails() {
+    return {
+      title: 'Event Details',
+    };
+  }
+
   @Get('/ticketdetails')
   @Render('ticketdetails')
   ticketdetails() {
@@ -56,7 +64,9 @@ export class AppController {
   @Post('/search')
   @Render('searchresultpage')
   async searchresult() {
-
+    return {
+      title: 'Search Result',
+    }
   }
 
   @Get("/dashboard")
