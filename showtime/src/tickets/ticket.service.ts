@@ -29,7 +29,7 @@ export class TicketService {
    }
 
    async updateTicket(id: string, upTicket: UpdateTicketDto) {
-      return await this.ticketModel.findByIdAndUpdate(id, upTicket)
+      return (await (await this.ticketModel.findByIdAndUpdate(id, upTicket).exec()).populate("event")).populate("user")
    }
 
    async deleteTicket(id: string){

@@ -9,7 +9,7 @@ import { User } from './users/schemas/user.schema';
 // import { Ticket } from './tickets/schemas/ticket.schema';
 import { CreateTicketDto } from './tickets/dto/createTicketDto';
 import { TicketService } from './tickets/ticket.service';
-import * as qrcode from 'qrcode';
+import { UpdateTicketDto } from './tickets/dto/updateTicketDto';
 
 @Injectable()
 export class AppService {
@@ -47,6 +47,13 @@ export class AppService {
     this.eventServ.updateEvent(event_id, event)
   }
 
+  async addTicketToUser(@Param("tick_id") tick_id: string, @Param("user_id") user_id: string) {
+    const ticket = await this.ticketServ.findTicketById(tick_id);
+    const user = await this.userServ.findUserById(user_id)
+    user.tickets.push(ticket)
+    this.userServ.updateUser(user_id, user)
+  }
+
   async promote(@Param("id") id: string): Promise<User> {
     const user = await this.userServ.findUserById(id);
     if (user.is_admin == false) {
@@ -76,23 +83,25 @@ export class AppService {
   async bookConcertTicket(@Param("event_id") event_id: string, @Param("user_id") user_id: string) {
     const event = await this.eventServ.findById(event_id);
     const user = await this.userServ.findUserById(user_id);
+    // console.log(event + "\n" + user);
+    
     const createTicketDto = new CreateTicketDto();
     createTicketDto.user = user;
     createTicketDto.event = event;
 
     const ticket = await this.ticketServ.createTicket(createTicketDto);
     const id = ticket._id.toHexString()
-    const url = "http://localhost:3000/check_ticket/" + id 
-
-    try{
-      const qr = await qrcode.toDataURL(url)
-      ticket.qr_code = qr;
-    } catch (error) {
-
-    }
-
-    const up = await this.ticketServ.updateTicket(id, ticket)
+    // console.log(ticket);
+     
+    const tickup = new UpdateTicketDto
+    tickup.event = ticket.event
+    tickup.qr_code = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:3000/ticketdetails/" + id + "alphas"
+    tickup.user = ticket.user
+    tickup.release_date = ticket.release_date
+    const up = await this.ticketServ.updateTicket(id,tickup);
+    // console.log(up);
     this.addTicketToEvent(id, event_id);
+    this.addTicketToUser(id, user_id)
     return up;
   }
 }

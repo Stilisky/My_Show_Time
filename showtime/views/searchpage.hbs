@@ -1,102 +1,103 @@
 {{#> app}}
 {{#*inline "content"}}
 {{#if id }}
-      <nav class="border-gray-200 u-hero-gradient">
-        <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="/" class="flex items-center">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
-                    Bi</span>
+<nav class="border-gray-200 u-hero-gradient">
+    <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" class="flex items-center">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
+                Bi</span>
+        </a>
+        <div class="flex items-center md:order-2 space-x-3.5">
+            <a href="/notification">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="white" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
             </a>
-            <div class="flex items-center md:order-2 space-x-3.5">
-                <a href="/notification">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="white" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                    </svg>
-                </a>
 
-                <button type="button"
-                    class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                    data-dropdown-placement="bottom">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
-                </button>
-                <!-- Dropdown menu -->
-                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-                    id="user-dropdown">
-                    <div class="px-4 py-3">
-                        <span class="block text-sm text-gray-900 dark:text-white"> {{ usernav }} </span>
-                        <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ mailnav }}</span>
-                    </div>
-                    <ul class="py-2" aria-labelledby="user-menu-button">
-                        <li>
-                            <a href="/dashboard"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="/logout"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
+            <button type="button"
+                class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom">
+                <span class="sr-only">Open user menu</span>
+                <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
+            </button>
+            <!-- Dropdown menu -->
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                id="user-dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white"> {{ usernav }} </span>
+                    <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ mailnav }}</span>
                 </div>
-                <button data-collapse-toggle="navbar-user" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-user" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
-            </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                <ul
-                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
                         <a href="/dashboard"
-                            class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white md:p-0 md:dark:text-blue-500"
-                            aria-current="page">Dashboard</a>
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                     </li>
                     <li>
-                        <a href="/allEvents"
-                            class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">All
-                            Events</a>
+                        <a href="/logout"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                            out</a>
                     </li>
                 </ul>
             </div>
+            <button data-collapse-toggle="navbar-user" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-user" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
         </div>
-    </nav>
-    {{else }}
-      <nav class="border-gray-200 dark:bg-gray-900 bg-black">
-      <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+            <ul
+                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a href="/dashboard"
+                        class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white md:p-0 md:dark:text-blue-500"
+                        aria-current="page">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/allEvents"
+                        class="block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">All
+                        Events</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{{else }}
+<nav class="border-gray-200 dark:bg-gray-900 bg-black">
+    <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center">
-          <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
-            Bi</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
+                Bi</span>
         </a>
         <div class="flex md:order-2">
-          <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-            <ul
-              class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 mr-6 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <a href="/" class="transition-transform duration-100 ease-in-out text-white">Home</a>
-              </li>
-              <li>
-                <a href="/allEvents" class="transition-transform duration-100 ease-in-out text-white">See all events</a>
-              </li>
-              {{!-- <li>
-                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Services</a>
-              </li> --}}
-              <li>
-                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Contact</a>
-              </li>
-            </ul>
-            <a href="/login">
-              <button type="button"
-                class="
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+                <ul
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 mr-6 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="/" class="transition-transform duration-100 ease-in-out text-white">Home</a>
+                    </li>
+                    <li>
+                        <a href="/allEvents" class="transition-transform duration-100 ease-in-out text-white">See all
+                            events</a>
+                    </li>
+                    {{!-- <li>
+                        <a href="#" class="transition-transform duration-100 ease-in-out text-white">Services</a>
+                    </li> --}}
+                    <li>
+                        <a href="#" class="transition-transform duration-100 ease-in-out text-white">Contact</a>
+                    </li>
+                </ul>
+                <a href="/login">
+                    <button type="button"
+                        class="
               relative
               flex
               items-center
@@ -113,24 +114,24 @@
               pt-4
               pb-4
               text-[#08e2ff] border-[#08e2ff] hover:bg-white hover:text-black hover:border-white focus:bg-white focus:border-white hover:text-ternary focus:text-ternary border bg-transparent text-center rounded-full px-8 text-sm">
-                <span class="transition-transform duration-100 ease-in-out">Connexion</span>
-              </button>
-            </a>
-          </div>
+                        <span class="transition-transform duration-100 ease-in-out">Connexion</span>
+                    </button>
+                </a>•••
 
-          <button data-collapse-toggle="navbar-cta" type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-cta" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15" />
-            </svg>
-          </button>
+                <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
         </div>
-      </div>
-    </nav>
-    {{/if }}
+</nav>
+{{/if }}
 <section class="h-[400px] relative bg-[url('/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg')] bg-cover">
     <div class="h-full w-full absolute z-10 bg-[#00000092]">
         <div class="container mx-auto">
@@ -139,10 +140,10 @@
                     <div class="flex mt-20">
                         <select id="countries" name="tag"
                             class="block w-1/4 mt-2 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
-                            <option selected>Genre</option>
-                            {{#each tags}}
-                            <option value="{{ _id }}"> {{ name }} </option>
-                            {{/each }}
+                        <option selected>Genre</option>
+                        {{#each tags}}
+                        <option value="{{ _id }}"> {{ name }} </option>
+                        {{/each }}
                         </select>
                         <input type="date" placeholder="Date" name="date"
                             class="block  mt-2 w-1/4 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
@@ -195,8 +196,8 @@
                     </div>
 
                     <div class="flex items-center justify-between py-2 px-2 bg-gray-400 mb-5">
-                        <h1 class="text-gray-800 font-bold ">{{ price }}XOF</h1>
-                        <a href="/details/events/{{ _id }}">
+                        <h1 class="text-gray-800 font-bold ">{{ price }} XOF</h1>
+                        <a href="/eventsdetails/{{ _id }}">
                             <button
                                 class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
                                 it</button>

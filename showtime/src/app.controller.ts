@@ -58,14 +58,8 @@ export class AppController {
         });
         res.render('dash', {userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers} )
       } else {
-        const tickets = await this.ticketService.findAllTickets()
-        const userTickets = []
-        tickets.forEach(element => {
-          if(element.user == user) {
-            userTickets.push(element)
-          }
-        });
-
+        const userTickets = user.tickets
+        
         const usernav = session.name
         const emailnav = session.email
         
@@ -111,18 +105,28 @@ export class AppController {
 
   @Get('/allEvents')
   @Render('searchpage')
-  async searchpage() {
+  async searchpage(@Session() session) {
     const tags = await this.tagService.findTags()
     const events = await this.eventService.findAll()
-    return { title: 'Dashboard', tags, events };
+    let id, usernav, mailnav;
+    if(session.userId) {
+      id = session.userId;
+      usernav = session.name
+      mailnav = session.email
+    }
+    return { title: 'Dashboard', tags, events, id, usernav, mailnav };
   }
 
   @Post('/search')
   @Render('searchresultpage')
-  async searchresult() {
-    return {
-      title: 'Search Result',
+  async searchresult(@Session() session) {
+    let id, usernav, mailnav;
+    if(session.userId) {
+      id = session.userId;
+      usernav = session.name
+      mailnav = session.email
     }
+    return { title: 'Search Result', id, usernav, mailnav }
   }
 
   @Get('/favtags')
@@ -311,13 +315,16 @@ export class AppController {
   }
 
   @Get('/logout')
-   @Redirect('/')
-   logout(@Session() session) {
-      session.destroy();
-   }
+  @Redirect('/')
+  logout(@Session() session) {
+    session.destroy();
+  }
 
-  @Get('/toktok')
-  async toktok() {
-    return await this.appService.bookConcertTicket("64e6d53db7e27d163ba0b56c", "64e73b797a0b200af27533f4")
+  @Post('/bookTicket/:event_id')
+  @Render('ticketdetails')
+  async bookTicket(@Session() session, @Param("event_id") event_id: string) {
+    const id = session.userId
+    const ticket = await this.appService.bookConcertTicket(event_id, id)
+    return {ticket};
   }
 }

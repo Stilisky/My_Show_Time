@@ -93,11 +93,11 @@ export class UserService {
    }
 
    async findUserById(id: string) {
-      return (await (await this.userModel.findById(id).exec()).populate("ticket")).populate("notification");
+      return (await (await this.userModel.findById(id).exec()).populate("tickets")).populate("notifications");
    }
 
    async updateUser(id: string, userupdt: UpdateUserDto) {
-      const upUser = (await (await this.userModel.findByIdAndUpdate(id, userupdt)).populate("ticket")).populate("notification")
+      const upUser = (await (await this.userModel.findByIdAndUpdate(id, userupdt)).populate("tickets")).populate("notifications")
       return upUser;
    }
 
