@@ -16,7 +16,7 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
    constructor(@InjectModel(User.name) private readonly userModel: Model<User>) { }
 
-   async createUser(createUserDto: CreateUserDto): Promise<User> {
+   async createUser(createUserDto: CreateUserDto) {
       const { email, username, phone } = createUserDto;
 
       // Check email format using regex
@@ -57,12 +57,12 @@ export class UserService {
          throw new ConflictException('Phone number is already taken');
       }
 
-      const createdUser = new this.userModel(createUserDto);
+      const createdUser = new this.userModel(createUserDto).save();
       // console.log(createdUser)
 
-      return createdUser.save();
+      return createdUser;
    }
-   async validateUser(email: string, password: string): Promise<{ user: User | null; error: string | null }> {
+   async validateUser(email: string, password: string) {
 
       try {
          const user = await this.userModel.findOne({ email }).exec();
@@ -87,24 +87,25 @@ export class UserService {
       const user = await this.userModel.findOne({ email }).exec();
       return user || null;
    }
+
    async findAllUsers(): Promise<User[]> {
       return await this.userModel.find().exec();
    }
 
-   async findUserById(id: string): Promise<User> {
-      return await this.userModel.findById(id).exec();
+   async findUserById(id: string) {
+      return (await (await this.userModel.findById(id).exec()).populate("ticket")).populate("notification");
    }
 
-   async updateUser(id: string, userupdt: UpdateUserDto): Promise<User> {
-      const upUser = await this.userModel.findByIdAndUpdate(id, userupdt)
+   async updateUser(id: string, userupdt: UpdateUserDto) {
+      const upUser = (await (await this.userModel.findByIdAndUpdate(id, userupdt)).populate("ticket")).populate("notification")
       return upUser;
    }
 
-   async deleteUser(id: string): Promise<User> {
+   async deleteUser(id: string) {
       return await this.userModel.findByIdAndDelete(id);
    }
 
-   async getNumberOfUser(): Promise<number> {
+   async getNumberOfUser() {
       return await this.userModel.count();
    }
 

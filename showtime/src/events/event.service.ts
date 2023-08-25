@@ -15,16 +15,16 @@ export class EventService {
       return this.eventModel.find().exec();
    }
 
-   async findById(id: string): Promise<Event> {
-      return this.eventModel.findById(id).exec()
+   async findById(id: string) {
+      return this.eventModel.findById(id).populate("tag").populate("tickets")
    }
 
-   async createEvent(newEvent: CreateEventDto): Promise<Event> {
-      const add = new this.eventModel(newEvent);
-      return add.save();
+   async createEvent(newEvent: CreateEventDto) {
+      const add = new this.eventModel(newEvent).save();
+      return add;
    }
 
-   async updateEvent(id: string, ev: UpdateEventDto): Promise<Event> {
+   async updateEvent(id: string, ev: UpdateEventDto) {
       return this.eventModel.findByIdAndUpdate(id, ev).exec()
    }
 

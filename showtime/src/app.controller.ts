@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Redirect, Session } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -10,6 +10,7 @@ import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
 import { CreateEventDto } from './events/dto/createEvent.dto';
 import { UpdateEventDto } from './events/dto/updateEvent.dto';
 import { CreateTagDto } from './tags/dto/createTagDto.dto';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -24,35 +25,90 @@ export class AppController {
   @Get('/')
   @Render('index')
   index(@Session() session) {
-    const user = session.user;
-    console.log(session);
-    return {
-      title: 'Home',
-      user: user,
-    };
-  }
-  @Get('/usersDashboard')
-  @Render('usersDashboard')
-  usersDashboard() {
-    return {
-      title: 'Dashboard',
-    };
-  }
-  @Get('/eventsdetails')
-  @Render('eventsdetails')
-  eventsdetails() {
-    return {
-      title: 'Event Details',
-    };
+    let id;
+    if(session.userId){
+      id = session.userId;
+      const usernav = session.name
+      const mailnav = session.email
+      return {title: 'Home', id, usernav, mailnav};
+    } else {
+      id = null
+      return {title: 'Home', id};
+    }
+    // console.log("Home control " + id);
   }
 
-  @Get('/ticketdetails')
-  @Render('ticketdetails')
-  ticketdetails() {
-    return {
-      title: 'Dashboard',
-    };
+  @Get('/dashboard')
+  @Render('')
+  async dashboard(@Session() session, @Res() res: Response) {
+    if(session.userId){
+      const user = await this.userService.findUserById(session.userId)
+      const admin = user.is_admin
+      if (admin){
+        const userNumbers = await this.userService.getNumberOfUser();
+        const tagNumbers = await this.tagService.getNumberOfTag();
+        const ticketNumbers = await this.ticketService.getNumberOfTicket();
+        const eventNumbers = await this.eventService.getNumberOfEvent();
+        const allTags = await this.tagService.findTags();
+        const tagname = [];
+        const tagusers = [];
+        allTags.forEach(element => {
+          tagname.push(element.name);
+          tagusers.push(element.users.length)
+        });
+        res.render('dash', {userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers} )
+      } else {
+        const tickets = await this.ticketService.findAllTickets()
+        const userTickets = []
+        tickets.forEach(element => {
+          if(element.user == user) {
+            userTickets.push(element)
+          }
+        });
+
+        const usernav = session.name
+        const emailnav = session.email
+        
+        res.render('usersDashboard', {userTickets, usernav, emailnav})
+      }
+
+    } else {
+      res.redirect('/')
+    }
   }
+  @Get('/eventsdetails/:id')
+  @Render('eventsdetails')
+  async eventsdetails(@Session() session, @Param("id") event_id: string) {
+    const id = session.userId;
+    const event = await this.eventService.findById(event_id);
+    if (id){
+      const usernav = session.name
+      const mailnav = session.email
+      return {title: 'Event Details', id, usernav, mailnav, event};
+    }else {
+      return {
+      title: 'Event Details', id, event
+    };
+    }
+    
+  }
+
+  @Get('/ticketdetails/:id')
+  @Render('ticketdetails')
+  async ticketdetails(@Session() session, @Param("id") tick_id: string) {
+    let id;
+    const ticket = await this.ticketService.findTicketById(tick_id)
+    if(session.userId){
+      id = session.userId;
+      const usernav = session.name
+      const mailnav = session.email
+      return {title: 'Ticket Details', id, usernav, mailnav, ticket};
+    } else {
+      id = null
+      return {title: 'Home', id, ticket};
+    }
+  }
+
   @Get('/allEvents')
   @Render('searchpage')
   async searchpage() {
@@ -75,23 +131,6 @@ export class AppController {
     return {
       title: 'Dashboard',
     };
-  }
-
-  @Get("/dashboard")
-  @Render("dash")
-  async dashboard() {
-    const userNumbers = await this.userService.getNumberOfUser();
-    const tagNumbers = await this.tagService.getNumberOfTag();
-    const ticketNumbers = await this.ticketService.getNumberOfTicket();
-    const eventNumbers = await this.eventService.getNumberOfEvent();
-    const allTags = await this.tagService.findTags();
-    const tagname = [];
-    const tagusers = [];
-    allTags.forEach(element => {
-      tagname.push(element.name);
-      tagusers.push(element.users.length)
-    });
-    return { userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers }
   }
 
   @Get("tag/:tag_id/user/:user_id")
@@ -259,6 +298,12 @@ export class AppController {
       title: 'Login',
     };
   }
+
+  @Get('/logout')
+   @Redirect('/')
+   logout(@Session() session) {
+      session.destroy();
+   }
 
   @Get('/toktok')
   async toktok() {
