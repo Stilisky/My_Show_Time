@@ -38,6 +38,14 @@ export class AppController {
       title: 'Dashboard',
     };
   }
+  @Get('/eventsdetails')
+  @Render('eventsdetails')
+  eventsdetails() {
+    return {
+      title: 'Event Details',
+    };
+  }
+
   @Get('/ticketdetails')
   @Render('ticketdetails')
   ticketdetails() {
@@ -49,7 +57,15 @@ export class AppController {
   @Render('searchpage')
   searchpage() {
     return {
-      title: 'Dashboard',
+      title: 'All event',
+    };
+  }
+
+  @Get('/searchresultpage')
+  @Render('searchresultpage')
+  searchresultpage() {
+    return {
+      title: 'Search Result',
     };
   }
 
