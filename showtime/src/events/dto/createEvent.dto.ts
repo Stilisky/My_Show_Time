@@ -5,5 +5,6 @@ export class CreateEventDto {
    event_date: string;
    status: boolean;
    price: number;
+   organisator: string;
    picture: string;
 }

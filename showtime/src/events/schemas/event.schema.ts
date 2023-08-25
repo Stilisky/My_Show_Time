@@ -23,6 +23,9 @@ export class Event {
    @Prop({required: true})
    city: string
 
+   @Prop({ required: true })
+   organisator: string
+
    @Prop({required: true})
    price: number
 
