@@ -1,12 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Delete, Get, Param, Put, Query, Render } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
 import { UpdateUserDto } from './dto/updateUserDto';
-import * as bcrypt from 'bcrypt';
-//import { get } from 'superagent';
 
 @Controller("users")
 export class UserController {
@@ -25,51 +21,10 @@ export class UserController {
    }
 
 
-   @Post('/login')
-   async login( 
-      @Session() session,
-      @Body() existingUser: CreateUserDto,
-      @Res() res: Response,
-   ) {
-      const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
-      // Redirect to /home if login is successful
-      if (user) {
-         session["userId"] = user._id
-         session["name"] = user.username
-         session["email"] = user.email
-         return res.redirect('/');
-      }
-      else {
-         res.render('user/login', { error: 'Email or password invalid! ' });
-      }
-   }
-
    @Get('/login')
    @Render('users/login')
    getLogin(@Query('error') error: string) {
       return { error };
-   }
-
-   //Create new user
-   @Post('/register')
-   async saveUser(
-      @Body() newuser: CreateUserDto,
-      @Res() res: Response,
-   ) {
-      //Hash password
-      const password = newuser.password;
-      const saltRounds = 12;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-      newuser.password = hashedPassword;
-
-      const createdUser = await this.userService.createUser(newuser);
-      // Redirect to "favTag" page upon successful registration
-      if (createdUser) {
-         // res.redirect('/favTag');
-         res.render('login.hbs');
-      } else {
-         res.render('register.hbs', { errorMessage: 'Registration failed. Email or username invalid! ' });
-      }
    }
 
    @Get(":id")

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res, HttpStatus } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -10,6 +10,8 @@ import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
 import { UpdateEventDto } from './events/dto/updateEvent.dto';
 import { CreateTagDto } from './tags/dto/createTagDto.dto';
 import { Response } from 'express';
+import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from './users/dto/createuser.dto';
 
 @Controller()
 export class AppController {
@@ -83,7 +85,6 @@ export class AppController {
       title: 'Event Details', id, event
     };
     }
-    
   }
 
   @Get('/ticketdetails/:id')
@@ -369,4 +370,37 @@ export class AppController {
         });
         return {userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers}
   }
+
+  @Post('/login')
+   async signin(
+      @Session() session,
+      @Body() existingUser: CreateUserDto,
+      @Res() res: Response,
+   ) {
+      const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
+      // Redirect to /home if login is successful
+      if (user) {
+         session["userId"] = user._id
+         session["name"] = user.username
+         session["email"] = user.email
+         return res.redirect('/dashboard');
+      }
+      else {
+         res.render('login.hbs', { error: 'Email or password invalid! ' });
+      }
+   }
+
+  @Post('/register')
+   async saveUser(@Body() newUser: CreateUserDto, @Res() res: Response) {
+      try {
+         const hashedPassword = await bcrypt.hash(newUser.password, 12);
+         newUser.password = hashedPassword;
+
+         await this.userService.createUser(newUser);
+         res.render('index.hbs');
+      } catch (error) {
+         const statusCode = error.getStatus ? error.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+         res.status(statusCode).render('register.hbs', { errorMessage: error.message });
+      }
+   }
 }
