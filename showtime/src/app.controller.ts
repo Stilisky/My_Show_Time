@@ -247,7 +247,7 @@ export class AppController {
   @Post("/new/tag")
   @Redirect('/admin/tags')
   async tagsubmit(@Body() addtag: CreateTagDto) {
-    this.tagService.createTag(addtag)
+    await this.tagService.createTag(addtag)
     const tags = await this.tagService.findTags()
     return { tags }
   }
@@ -292,13 +292,18 @@ export class AppController {
 
   @Get('/notification')
   @Render('notification')
-  notification(@Session() session) {
-    const user_Id = session.user._Id
-    const notifications =  this.userService.findUserById(user_Id)
-    console.log(notifications)
-    return {
-      title: 'Notification', notifications
-    };
+  async notification(@Session() session, @Res() res: Response) {
+    const user_Id = session.userId
+    if(user_Id) {
+      const user = await this.userService.findUserById(user_Id)
+      const notifications = user.notifications
+      return {
+        title: 'Notification', notifications
+      };
+    } else {
+      res.redirect("/")
+    }
+    
   }
 
   // @Post("/user/register")
@@ -326,5 +331,22 @@ export class AppController {
     const id = session.userId
     const ticket = await this.appService.bookConcertTicket(event_id, id)
     return {ticket};
+  }
+
+  @Get("/checkadmin")
+  @Render("dash")
+  async checkchap() {
+    const userNumbers = await this.userService.getNumberOfUser();
+        const tagNumbers = await this.tagService.getNumberOfTag();
+        const ticketNumbers = await this.ticketService.getNumberOfTicket();
+        const eventNumbers = await this.eventService.getNumberOfEvent();
+        const allTags = await this.tagService.findTags();
+        const tagname = [];
+        const tagusers = [];
+        allTags.forEach(element => {
+          tagname.push(element.name);
+          tagusers.push(element.users.length)
+        });
+        return {userNumbers, tagNumbers, ticketNumbers, eventNumbers, tagname, tagusers}
   }
 }

@@ -32,7 +32,15 @@ export class AppService {
     return tagup
   }
 
-  async addEventToTag(@Param("tag_id") tag_id: string, @Param("event_id") event_id: string): Promise<Tag> {
+  async addEventToTag(@Param("tag_id") tag_id: string, @Param("event_id") event_id: string) {
+    const tag = await this.tagServ.findTag(tag_id)
+    const event = await this.eventServ.findById(event_id)
+    tag.events.push(event)
+    const tagup = await this.tagServ.updateTag(tag_id, tag)
+    return tagup
+  }
+
+  async addTagToEvent(@Param("event_id") event_id: string, @Param("tag_id") tag_id: string) {
     const tag = await this.tagServ.findTag(tag_id)
     const event = await this.eventServ.findById(event_id)
     tag.events.push(event)
@@ -101,7 +109,7 @@ export class AppService {
     const up = await this.ticketServ.updateTicket(id,tickup);
     // console.log(up);
     this.addTicketToEvent(id, event_id);
-    this.addTicketToUser(id, user_id)
+    this.addTicketToUser(id, user_id);
     return up;
   }
 }
