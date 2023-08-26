@@ -1,35 +1,54 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
   <link href="/css/style.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <title>{{ user.username }}</title>
 </head>
+
 <body>
   <div>
     {{> content}}
   </div>
+  <script src="https://unpkg.com/scrollreveal@4.0.7/dist/scrollreveal.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-<script>
+  <script>
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirmPassword');
     const passwordMismatchMessage = document.getElementById('passwordMismatch');
     const signupButton = document.getElementById('signupButton');
 
     function checkPasswordMatch() {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            passwordMismatchMessage.style.display = 'block';
-            signupButton.disabled = true;
-        } else {
-            passwordMismatchMessage.style.display = 'none';
-            signupButton.disabled = false;
-        }
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        passwordMismatchMessage.style.display = 'block';
+        signupButton.disabled = true;
+      } else {
+        passwordMismatchMessage.style.display = 'none';
+        signupButton.disabled = false;
+      }
     }
 
     confirmPasswordInput.addEventListener('blur', checkPasswordMatch);
-</script>
+  </script>
+  <script>
+    const sr = ScrollReveal();
+
+    sr.reveal('.animated', {
+      duration: 3000, 
+      distance: '20px',       
+      origin: 'bottom',       
+      viewFactor: 0.2,
+    });
+  </script>
+
+
+
+
 </body>
+
+
 </html>
