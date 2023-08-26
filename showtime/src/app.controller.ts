@@ -475,4 +475,24 @@ export class AppController {
     const userid = session.userId
     this.appService.addUserToTag(id, userid)
   }
+  @Get('/accountinfo')
+  @Render('accountinfo')
+  async accountinfo(@Session() session) {
+
+    const userId = session.userId;
+
+    const user = await this.userService.findUserById(userId);
+    console.log(user);
+
+
+    return{ title: 'Accountinfo',
+    user}
+  };
+
+  @Post('/update/users/:id')
+  @Redirect("/accountinfo")
+  async updateAccountInfo(@Param('id') id: string, @Body() updateData) {
+    this.userService.updateUser(id, updateData)
+  }
+ 
 }

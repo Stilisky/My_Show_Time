@@ -8,11 +8,11 @@ import { UpdateUserDto } from './dto/updateUserDto';
 export class UserController {
    constructor(private readonly userService: UserService) { }
 
-   //All users
-   @Get()
-   async getUsers() {
-      return this.userService.findAllUsers();
-   }
+  //All users
+  @Get()
+  async getUsers() {
+    return this.userService.findAllUsers();
+  }
 
    //Count user
    @Get("/count")
@@ -25,6 +25,28 @@ export class UserController {
    @Render('users/login')
    getLogin(@Query('error') error: string) {
       return { error };
+   }
+
+   //Create new user
+   @Post('/register')
+   async saveUser(
+      @Body() newuser: CreateUserDto,
+      @Res() res: Response,
+   ) {
+      //Hash password
+      const password = newuser.password;
+      const saltRounds = 12;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      newuser.password = hashedPassword;
+
+      const createdUser = await this.userService.createUser(newuser);
+      // Redirect to "favTag" page upon successful registration
+      if (createdUser) {
+         // res.redirect('/favTag');
+         res.render('login.hbs');
+      } else {
+         res.render('register.hbs', { errorMessage: 'Registration failed. Email or username invalid! ' });
+      }
    }
 
    @Get(":id")
@@ -43,4 +65,6 @@ export class UserController {
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
    }
+
 }
+
