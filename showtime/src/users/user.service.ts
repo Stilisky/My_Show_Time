@@ -11,7 +11,6 @@ import { CreateUserDto } from './dto/createuser.dto';
 import { UpdateUserDto } from './dto/updateUserDto';
 import * as bcrypt from 'bcrypt';
 import { Notification } from 'src/notifications/schemas/notification.schema';
-//import { log } from 'console';
 
 @Injectable()
 export class UserService {
@@ -99,7 +98,7 @@ export class UserService {
    }
 
    async updateUser(id: string, userupdt: UpdateUserDto) {
-      const upUser = (await (await this.userModel.findByIdAndUpdate(id, userupdt)).populate("tickets")).populate("notifications")
+      const upUser = this.userModel.findByIdAndUpdate(id, userupdt)
       return upUser;
    }
 
@@ -111,4 +110,10 @@ export class UserService {
       return await this.userModel.count();
    }
 
+   async changeUserPass(id:string, hashedPassword:string ) {
+      const user = await this.userModel.findById(id).exec();
+      user.password = hashedPassword
+      const newuser = await this.userModel.findByIdAndUpdate(id, user).exec()
+      return newuser
+   }
 }

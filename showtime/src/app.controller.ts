@@ -493,5 +493,30 @@ export class AppController {
   async updateAccountInfo(@Param('id') id: string, @Body() updateData) {
     this.userService.updateUser(id, updateData)
   }
+
+  @Post("/changepassword/:id")
+  @Redirect("/login")
+  async changepassword(@Param("id") id: string, @Body() updatepass, @Res() res: Response){
+    const oldpass = updatepass.password
+    const newpass = updatepass.newpass
+    const confpass = updatepass.confpass
+    const user = await this.userService.findUserById(id)
+    const checkoldpass  = await bcrypt.compare(oldpass, user.password)
+    console.log(checkoldpass);
+    
+    if (checkoldpass) {
+      if (newpass == confpass) {
+        const hashedPassword = await bcrypt.hash(newpass, 12);
+        this.userService.changeUserPass(id, hashedPassword )
+        res.redirect("/login")
+      } else {
+        // console.log("change")
+        res.redirect("/accountinfo")
+      }
+    } else {
+      res.redirect("/accountinfo")
+    }
+
+  }
  
 }
