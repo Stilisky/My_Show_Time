@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Res, Query, Render, Session} from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
-import { UpdateUserDto } from './dto/updateUserDto';
 import * as bcrypt from 'bcrypt';
 //import { get } from 'superagent';
 
@@ -86,11 +85,6 @@ export class UserController {
 
    }
 
-   @Get(":id")
-   async getUserById(@Param("id") id: string): Promise<User> {
-      return this.userService.findUserById(id);
-   }
-
   //Find user by id
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<User> {
@@ -102,4 +96,6 @@ export class UserController {
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
    }
+
 }
+

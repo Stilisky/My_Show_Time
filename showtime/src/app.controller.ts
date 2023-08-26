@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Redirect, Session } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Put } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -264,4 +264,27 @@ export class AppController {
   async toktok() {
     return await this.appService.bookConcertTicket("64e6d53db7e27d163ba0b56c", "64e73b797a0b200af27533f4")
   }
+  @Get('/accountinfo')
+  @Render('accountinfo')
+  async accountinfo(@Session() session) {
+
+    const userId = session.userId;
+
+    const user = await this.userService.findUserById(userId);
+
+
+    return{ title: 'Accountinfo',
+    user: user}
+  };
+
+  @Put('/update/users/:id')
+  @Redirect("/")
+  async updateAccountInfo(@Param('id') id: string, @Body() updateData) {
+    this.userService.updateUser(id, updateData)
+  }
+
+
+
+
+  
 }
