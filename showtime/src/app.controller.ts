@@ -36,13 +36,17 @@ export class AppController {
   ) {}
   @Get('/')
   @Render('index')
-  index(@Session() session) {
+  async index(@Session() session) {
     let id;
     if (session.userId) {
       id = session.userId;
       const usernav = session.name;
       const mailnav = session.email;
-      return { title: 'Home', id, usernav, mailnav };
+      const user = await this.userService.findUserById(id)
+      const notiflength = user.notifications.length
+      console.log(notiflength);
+      
+      return { title: 'Home', id, usernav, mailnav, notiflength };
     } else {
       id = null;
       return { title: 'Home', id };
@@ -79,16 +83,17 @@ export class AppController {
           tagusers,
         });
       } else {
-        const userTickets = user;
+        const userTickets = user.tickets;
         const usernav = session.name;
         const emailnav = session.email;
-        console.log(userTickets);
-        
+        // console.log(userTickets);
+        const notiflength = user.notifications.length
         res.render('usersDashboard', {
           userTickets,
           usernav,
           emailnav,
           tags,
+          notiflength,
           userid,
         });
       }
@@ -104,7 +109,9 @@ export class AppController {
     if (id) {
       const usernav = session.name;
       const mailnav = session.email;
-      return { title: 'Event Details', id, usernav, mailnav, event };
+      const user = await this.userService.findUserById(id)
+      const notiflength = user.notifications.length
+      return { title: 'Event Details', id, usernav, mailnav, event, notiflength };
     } else {
       return {
         title: 'Event Details',
@@ -123,7 +130,9 @@ export class AppController {
       id = session.userId;
       const usernav = session.name;
       const mailnav = session.email;
-      return { title: 'Ticket Details', id, usernav, mailnav, ticket };
+      const user = await this.userService.findUserById(id)
+      const notiflength = user.notifications.length
+      return { title: 'Ticket Details', id, usernav, mailnav, ticket, notiflength };
     } else {
       id = null;
       return { title: 'Home', id, ticket };
@@ -135,27 +144,31 @@ export class AppController {
   async searchpage(@Session() session) {
     const tags = await this.tagService.findTags();
     const events = await this.eventService.findAll();
-    let id, usernav, mailnav;
+    let id, usernav, mailnav, notiflength;
     if (session.userId) {
       id = session.userId;
       usernav = session.name;
       mailnav = session.email;
+      const user = await this.userService.findUserById(id)
+      notiflength = user.notifications.length
     }
-    return { title: 'Dashboard', tags, events, id, usernav, mailnav };
+    return { title: 'Dashboard', tags, events, id, usernav, mailnav, notiflength };
   }
 
   @Post('/search')
   @Render('searchresultpage')
   async searchresult(@Body() searchCriteria, @Session() session) {
-    let id, usernav, mailnav;
+    let id, usernav, mailnav, notiflength;
     if (session.userId) {
       id = session.userId;
       usernav = session.name;
       mailnav = session.email;
+      const user = await this.userService.findUserById(id)
+      notiflength = user.notifications.length
     }
     const tags = await this.tagService.findTags();
     const results = await this.eventService.searchEvents(searchCriteria);
-    return { title: 'Search Result', id, usernav, mailnav, results, tags };
+    return { title: 'Search Result', id, usernav, mailnav, results, tags, notiflength};
   }
 
   @Get('/favtags')
@@ -354,9 +367,12 @@ export class AppController {
     if (user_Id) {
       const user = await this.userService.findUserById(user_Id);
       const notifications = user.notifications;
+      // const user = await this.userService.findUserById(id)
+      const notiflength = user.notifications.length
       return {
         title: 'Notification',
         notifications,
+        notiflength
       };
     } else {
       res.redirect('/');
