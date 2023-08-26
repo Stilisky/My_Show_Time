@@ -65,10 +65,11 @@ export class AppController {
   @Render('searchresultpage')
   async searchEvents(@Body() searchCriteria) {
     // console.log('Search Criteria:', searchCriteria);
+    const tags = await this.tagService.findTags()
     const results = await this.eventService.searchEvents(searchCriteria);
     console.log(results);
     return {
-      title: 'Search Result',results
+      title: 'Search Result',results, tags
     }
   }
 
