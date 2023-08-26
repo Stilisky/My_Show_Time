@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
-=======
-
 
 .u-hero-gradient {
   background: transparent radial-gradient(farthest-side at right bottom, #635bff -140%, #10103a) 0 0 no-repeat padding-box;
@@ -53,4 +50,3 @@
   position: relative;
   top: -75px;
 }
->>>>>>> stag

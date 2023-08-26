@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res, Put } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -365,14 +365,10 @@ export class AppController {
     user: user}
   };
 
-  @Post('/update/users/:id')
+  @Put('/update/users/:id')
   @Redirect("/")
   async updateAccountInfo(@Param('id') id: string, @Body() updateData) {
     this.userService.updateUser(id, updateData)
   }
-
-
-
-
-  
+ 
 }
