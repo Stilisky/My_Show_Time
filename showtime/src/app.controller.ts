@@ -119,14 +119,17 @@ export class AppController {
 
   @Post('/search')
   @Render('searchresultpage')
-  async searchresult(@Session() session) {
+  async searchresult(@Body() searchCriteria, @Session() session) {
     let id, usernav, mailnav;
     if(session.userId) {
       id = session.userId;
       usernav = session.name
       mailnav = session.email
     }
-    return { title: 'Search Result', id, usernav, mailnav }
+    const tags = await this.tagService.findTags()
+    const results = await this.eventService.searchEvents(searchCriteria);
+    return { title: 'Search Result', id, usernav, mailnav, results, tags
+  }
   }
 
   @Get('/favtags')

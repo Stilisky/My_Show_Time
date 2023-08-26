@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/createuser.dto';
 import { User } from './schemas/user.schema';
 import { UpdateUserDto } from './dto/updateUserDto';
 import * as bcrypt from 'bcrypt';
+import session from 'express-session';
 //import { get } from 'superagent';
 
 @Controller("users")
@@ -87,5 +88,11 @@ export class UserController {
    @Delete(":id")
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
+   }
+
+   @Get('/logout')
+   logout(@Session() session,@Res() res: Response){
+     session.destroy();
+     return res.redirect('/');
    }
 }
