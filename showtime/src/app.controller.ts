@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Redirect, Session, Res } from '@nestjs/common';
 import { UserService } from './users/user.service';
 import { TagService } from './tags/tag.service';
 import { EventService } from './events/event.service';
@@ -359,14 +359,15 @@ export class AppController {
     const userId = session.userId;
 
     const user = await this.userService.findUserById(userId);
+    console.log(user);
 
 
     return{ title: 'Accountinfo',
-    user: user}
+    user}
   };
 
-  @Put('/update/users/:id')
-  @Redirect("/")
+  @Post('/update/users/:id')
+  @Redirect("/accountinfo")
   async updateAccountInfo(@Param('id') id: string, @Body() updateData) {
     this.userService.updateUser(id, updateData)
   }
