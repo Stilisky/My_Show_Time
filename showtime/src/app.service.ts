@@ -10,6 +10,7 @@ import { User } from './users/schemas/user.schema';
 import { CreateTicketDto } from './tickets/dto/createTicketDto';
 import { TicketService } from './tickets/ticket.service';
 import { UpdateTicketDto } from './tickets/dto/updateTicketDto';
+import { Notification } from './notifications/schemas/notification.schema';
 
 @Injectable()
 export class AppService {
@@ -111,5 +112,11 @@ export class AppService {
     this.addTicketToEvent(id, event_id);
     this.addTicketToUser(id, user_id);
     return up;
+  }
+
+  async sendNotification(user_id:string, notif: Notification) {
+    const user = await this.userServ.findUserById(user_id);
+    user.notifications.push(notif)
+    this.userServ.updateUser(user_id, user)
   }
 }

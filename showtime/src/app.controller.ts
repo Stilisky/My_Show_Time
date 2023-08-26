@@ -7,7 +7,6 @@ import { TicketService } from './tickets/ticket.service';
 import { NotificationService } from './notifications/notification.service';
 import { AppService } from './app.service';
 import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
-import { CreateEventDto } from './events/dto/createEvent.dto';
 import { UpdateEventDto } from './events/dto/updateEvent.dto';
 import { CreateTagDto } from './tags/dto/createTagDto.dto';
 import { Response } from 'express';
@@ -236,9 +235,10 @@ export class AppController {
 
   @Post("/new/event")
   @Redirect('/admin/events')
-  async eventsubmit(@Body() addevent: CreateEventDto) {
-    this.eventService.createEvent(addevent);
-    //add event to tag
+  async eventsubmit(@Body() addevent) {
+    const tagid = addevent.tag
+    const event = await this.eventService.createEvent(addevent);
+    this.appService.addEventToTag(tagid, event._id.toHexString())
     const events = await this.eventService.findAll()
     return { events }
   }
@@ -285,9 +285,26 @@ export class AppController {
     };
   }
 
-  @Get('/addnotification')
-  @Render('addnotification')
-  addnotification() {
+  @Get('/adminnotif')
+  @Render("addnotification")
+  async addnotifadmin() {
+    const tags = await this.tagService.findTags()
+    return {
+      title: 'Add notification', tags
+    };
+  }
+
+  @Post('/addnotif')
+  @Redirect("/dashboard")
+  async addnotification(@Body() newnotif) {
+    const tagid = newnotif.tag
+    const notif = await this.notifService.createNotif(newnotif)
+    const tag = await this.tagService.findTag(tagid)
+    const users = tag.users
+    users.forEach(element => {
+      const mail = element.email
+      this.userService.addNotifToUser(mail, notif)
+    }); 
     return {
       title: 'Add notification',
     };

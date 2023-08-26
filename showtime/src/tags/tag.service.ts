@@ -15,12 +15,12 @@ export class TagService {
    }
 
    async findTag(id: string){
-      return this.tagModel.findById(id).populate("event").populate("user")
+      return (await (await this.tagModel.findById(id).exec()).populate("users")).populate("events")
    }
 
    async createTag(newTag: CreateTagDto) {
-      const addtag = new this.tagModel(newTag);
-      return addtag.save();
+      const addtag = new this.tagModel(newTag).save();
+      return addtag;
    }
 
    async updateTag(id: string, uptag: UpdateTagDto) {

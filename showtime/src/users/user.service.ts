@@ -10,6 +10,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/createuser.dto';
 import { UpdateUserDto } from './dto/updateUserDto';
 import * as bcrypt from 'bcrypt';
+import { Notification } from 'src/notifications/schemas/notification.schema';
 //import { log } from 'console';
 
 @Injectable()
@@ -87,8 +88,16 @@ export class UserService {
       const user = await this.userModel.findOne({ email }).exec();
       return user || null;
    }
+   
+   async addNotifToUser(email:string ,notif: Notification) {
+      const user = await this.userModel.findOne({email}).exec()
+      user.notifications.push(notif)
+      // console.log("----user----\n" + user + "\n----\n");
+      this.updateUser(user._id.toHexString(), user)
+      return user;
+   }
 
-   async findAllUsers(): Promise<User[]> {
+   async findAllUsers() {
       return await this.userModel.find().exec();
    }
 

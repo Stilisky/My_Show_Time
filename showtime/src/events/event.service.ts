@@ -16,7 +16,7 @@ export class EventService {
    }
 
    async findById(id: string) {
-      return this.eventModel.findById(id).populate("tag").populate("tickets")
+      return (await (await this.eventModel.findById(id).exec()).populate("tag")).populate("tickets")
    }
 
    async createEvent(newEvent: CreateEventDto) {
