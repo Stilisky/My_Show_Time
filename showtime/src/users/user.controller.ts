@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session, } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session, Request } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
@@ -101,5 +101,11 @@ export class UserController {
    @Delete(":id")
    async deleteUser(@Param("id") id: string): Promise<User> {
       return this.userService.deleteUser(id)
+   }
+
+   @Get('/logout')
+   logout(@Request() req, @Res() res) : any {
+     req.session.destroy();
+     return res.redirect('/');
    }
 }

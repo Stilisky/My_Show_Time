@@ -10,7 +10,6 @@ import { UpdateTagDto } from './tags/dto/updateTagDto.dto';
 import { CreateEventDto } from './events/dto/createEvent.dto';
 import { UpdateEventDto } from './events/dto/updateEvent.dto';
 import { CreateTagDto } from './tags/dto/createTagDto.dto';
-import { session } from 'passport';
 
 @Controller()
 export class AppController {
@@ -64,9 +63,12 @@ export class AppController {
 
   @Post('/search')
   @Render('searchresultpage')
-  async searchresult() {
+  async searchEvents(@Body() searchCriteria) {
+    // console.log('Search Criteria:', searchCriteria);
+    const results = await this.eventService.searchEvents(searchCriteria);
+    console.log(results);
     return {
-      title: 'Search Result',
+      title: 'Search Result',results
     }
   }
 
@@ -252,7 +254,7 @@ export class AppController {
   @Render('notification')
   notification(@Session() session) {
     const user_Id = session.user._Id
-    const notifications =  this.userService.findUserById(user_Id)
+    const notifications = this.userService.findUserById(user_Id)
     console.log(notifications)
     return {
       title: 'Notification', notifications
