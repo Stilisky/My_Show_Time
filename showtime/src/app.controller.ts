@@ -477,16 +477,15 @@ export class AppController {
   }
   @Get('/accountinfo')
   @Render('accountinfo')
-  async accountinfo(@Session() session) {
-
-    const userId = session.userId;
-
-    const user = await this.userService.findUserById(userId);
-    console.log(user);
-
-
-    return{ title: 'Accountinfo',
-    user}
+  async accountinfo(@Session() session, @Res() res: Response) {
+    if(session.userId){
+      const userId = session.userId;
+      const user = await this.userService.findUserById(userId);
+      const notiflength = user.notifications.length
+      return{ title: 'Accountinfo', user, notiflength}
+    } else {
+      res.redirect("/login")
+    }
   };
 
   @Post('/update/users/:id')
