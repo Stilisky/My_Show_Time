@@ -10,20 +10,20 @@ import { CreateNotifDto } from './dto/notif.dto';
 export class NotificationService {
    constructor(@InjectModel(Notification.name) private notifModel: Model<Notification>){}
 
-   async findNotifById(id: string): Promise<Notification> {
-      return this.notifModel.findById(id).exec();
+   async findNotifById(id: string) {
+      return (await this.notifModel.findById(id).exec()).populate("user")
    }
 
-   async findAll(): Promise<Notification[]> {
+   async findAll(){
       return this.notifModel.find().exec()
    }
 
-   async createNotif(newNotif: CreateNotifDto): Promise<Notification> {
+   async createNotif(newNotif: CreateNotifDto) {
       const notif = new this.notifModel( newNotif)
       return notif.save();
    }
 
-   async deleteNotif(id: string): Promise<Notification> {
+   async deleteNotif(id: string){
       return this.notifModel.findByIdAndDelete(id).exec();
    }
 

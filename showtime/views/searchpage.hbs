@@ -1,10 +1,11 @@
 {{#> app}}
 {{#*inline "content"}}
-{{!-- <nav class="border-gray-200 u-hero-gradient">
+{{#if id }}
+<nav class="border-gray-200 u-hero-gradient">
     <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center">
-          <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
-            Bi</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
+                Bi</span>
         </a>
         <div class="flex items-center md:order-2 space-x-3.5">
             <a href="/notification">
@@ -26,16 +27,16 @@
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="user-dropdown">
                 <div class="px-4 py-3">
-                    <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                    <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+                    <span class="block text-sm text-gray-900 dark:text-white"> {{ usernav }} </span>
+                    <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ mailnav }}</span>
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
-                        <a href="/usersDashboard"
+                        <a href="/dashboard"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/logout"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
                             out</a>
                     </li>
@@ -56,7 +57,7 @@
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
-                    <a href="/usersDashboard"
+                    <a href="/dashboard"
                         class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:text-white md:p-0 md:dark:text-blue-500"
                         aria-current="page">Dashboard</a>
                 </li>
@@ -68,93 +69,94 @@
             </ul>
         </div>
     </div>
-</nav> --}}
+</nav>
+{{else }}
 <nav class="border-gray-200 dark:bg-gray-900 bg-black">
     <div class="container flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center">
             <span class="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Alpha's
-            Bi</span>
+                Bi</span>
         </a>
         <div class="flex md:order-2">
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-            <ul
-                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 mr-6 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                <a href="/" class="transition-transform duration-100 ease-in-out text-white">Home</a>
-                </li>
-                <li>
-                <a href="/allEvents" class="transition-transform duration-100 ease-in-out text-white">See all events</a>
-                </li>
-                {{!-- <li>
-                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Services</a>
-                </li> --}}
-                <li>
-                <a href="#" class="transition-transform duration-100 ease-in-out text-white">Contact</a>
-                </li>
-            </ul>
-            <a href="/login">
-                <button type="button"
-                class="
-                relative
-                flex
-                items-center
-                font-medium
-                leading-tight
-                select-none
-                group
-                transition-all
-                duration-300
-                ease-in-out
-                focus:ring focus:ring-opacity-50
-                outline-none
-                focus:outline-none
-                pt-4
-                pb-4
-                text-[#08e2ff] border-[#08e2ff] hover:bg-white hover:text-black hover:border-white focus:bg-white focus:border-white hover:text-ternary focus:text-ternary border bg-transparent text-center rounded-full px-8 text-sm">
-                <span class="transition-transform duration-100 ease-in-out">Connexion</span>
-                </button>
-            </a>
-            </div>
+                <ul
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 mr-6 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="/" class="transition-transform duration-100 ease-in-out text-white">Home</a>
+                    </li>
+                    <li>
+                        <a href="/allEvents" class="transition-transform duration-100 ease-in-out text-white">See all
+                            events</a>
+                    </li>
+                    {{!-- <li>
+                        <a href="#" class="transition-transform duration-100 ease-in-out text-white">Services</a>
+                    </li> --}}
+                    <li>
+                        <a href="#" class="transition-transform duration-100 ease-in-out text-white">Contact</a>
+                    </li>
+                </ul>
+                <a href="/login">
+                    <button type="button"
+                        class="
+              relative
+              flex
+              items-center
+              font-medium
+              leading-tight
+              select-none
+              group
+              transition-all
+              duration-300
+              ease-in-out
+              focus:ring focus:ring-opacity-50
+              outline-none
+              focus:outline-none
+              pt-4
+              pb-4
+              text-[#08e2ff] border-[#08e2ff] hover:bg-white hover:text-black hover:border-white focus:bg-white focus:border-white hover:text-ternary focus:text-ternary border bg-transparent text-center rounded-full px-8 text-sm">
+                        <span class="transition-transform duration-100 ease-in-out">Connexion</span>
+                    </button>
+                </a>•••
 
-            <button data-collapse-toggle="navbar-cta" type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-cta" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15" />
-            </svg>
-            </button>
+                <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
         </div>
-    </div>
 </nav>
+{{/if }}
 <section class="h-[400px] relative bg-[url('/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg')] bg-cover">
     <div class="h-full w-full absolute z-10 bg-[#00000092]">
         <div class="container mx-auto">
             <div class="flex items-center justify-center pt-24">
-                <form action="/search" method="post">
+                <form action="/search" method="POST">
                     <div class="flex mt-20">
                         <select id="countries" name="tag"
-                            class="block w-1/4 mt-2 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
-                            <option selected>Genre</option>
+                            class="block w-1/3 mt-2 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300">
+                            <option selected value="None">Genre</option>
                             {{#each tags}}
                             <option value="{{ _id }}"> {{ name }} </option>
                             {{/each }}
                         </select>
-                        <input type="date" placeholder="Date" name="date"
-                            class="block  mt-2 w-1/4 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
                         <input type="text" placeholder="Keyword" name="keyword"
-                            class="block  mt-2 w-1/4 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+                            class="block  mt-2 w-1/3 placeholder-gray-400/70 dark:placeholder-gray-500 border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
                         <button type="submit"
-                            class="flex justify-center mt-2 w-1/4 bg-[#635bff] px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
-                        <div class="flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="white" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                            <span class="text-white">Search</span>
-                        </div>
+                            class="flex justify-center mt-2 w-1/3 bg-[#635bff] px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300">
+                            <div class="flex space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="white" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                                <span class="text-white">Search</span>
+                            </div>
                         </button>
                     </div>
                 </form>
@@ -162,63 +164,50 @@
         </div>
     </div>
 </section>
+
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-5 mx-auto">
-        <div class="flex flex-col text-center w-full mb-10">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Our category</h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn
-                asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them.</p>
-        </div>
-        <div class="flex flex-wrap -m-2">
-            {{#each tags}}
-                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-                    <div class="h-full flex items-center border-gray-200 border p-4 space-x-1 rounded-lg">
-                        <div class="flex-grow flex justify-center items-center">
-                            <h2 class="text-gray-900 title-font font-medium"> {{ name }} </h2>
-                        </div>
-                    </div>
-                </div>
-            {{/each }}
-    </div>
-    </div>
-</section>
-<section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-10 mx-auto">
         <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Look events and book
                     your Ticket</h1>
-                <div class="h-1 w-20 u-hero-gradient rounded"></div>
+                <div class="h-1 w-20 bg-indigo-500 rounded"></div>
             </div>
             <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Whatever cardigan tote bag tumblr hexagon brooklyn
                 asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man
                 bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p>
         </div>
-        <div class="flex flex-wrap space-y-10 -m-4">
+        <div class="flex flex-wrap -m-4">
             {{#each events }}
-                <div class="xl:w-1/3 md:w-1/2 h-[250px] p-4 mb-10">
-                    <div class="flex flex-col justify-center items-center max-w-sm mx-auto mb-10">
-                        <div style="background-image: url(/img/pineapple-supply-co-qWlkCwBnwOE-unsplash.jpg"
-                            class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"></div>
-                        <div class="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-                            <div class="py-1 text-center font-bold uppercase tracking-wide text-gray-800"> {{ name }} </div>
-                            <h2 class="text-center my-1">{{ event_date }}</h2>
+            <div class="xl:w-1/4 md:w-1/2 p-4">
+                <div class="bg-gray-100 rounded-lg shadow-md">
+                    <div class="p-2">
+                        <img class="h-40 rounded w-full object-cover object-center mb-6"
+                            src="/img/danny-howe-bn-D2bCvpik-unsplash.jpg" alt="content">
+                    </div>
+                    <div class="p-2">
+                        <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">{{ event_date }}</h3>
+                        <h2 class="text-lg text-gray-900 font-medium title-font mb-1">{{ name }}</h2>
+                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat.
+                            Distillery
+                            hexagon disrupt edison bulbche.</p>
+                    </div>
 
-                            <div class="flex items-center justify-between py-2 px-3 bg-gray-400 mb-5">
-                                <h1 class="text-gray-800 font-bold ">{{ price }}XOF</h1>
-                                <a href="/details/events/{{ _id }}">
-                                    <button
-                                    class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
-                                    it</button>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="flex items-center justify-between py-2 px-2 bg-gray-400 mb-5">
+                        <h1 class="text-gray-800 font-bold ">{{ price }} XOF</h1>
+                        <a href="/eventsdetails/{{ _id }}">
+                            <button
+                                class=" bg-gray-800 text-xs text-white px-2 py-1 font-semibold rounded uppercase hover:bg-gray-700">Book
+                                it</button>
+                        </a>
                     </div>
                 </div>
+            </div>
             {{/each }}
         </div>
     </div>
 </section>
+
 <footer class="bg-black dark:bg-gray-900 px-5">
     <div class="mx-auto w-full p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">

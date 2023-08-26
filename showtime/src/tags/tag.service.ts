@@ -10,20 +10,20 @@ import { UpdateTagDto } from './dto/updateTagDto.dto';
 export class TagService {
    constructor(@InjectModel(Tag.name) private tagModel: Model<Tag>) {}
 
-   async findTags(): Promise<Tag[]> {
-      return this.tagModel.find().exec();
+   async findTags() {
+      return this.tagModel.find().exec()
    }
 
-   async findTag(id: string): Promise<Tag> {
-      return this.tagModel.findById(id);
+   async findTag(id: string){
+      return this.tagModel.findById(id).populate("event").populate("user")
    }
 
-   async createTag(newTag: CreateTagDto): Promise<Tag> {
+   async createTag(newTag: CreateTagDto) {
       const addtag = new this.tagModel(newTag);
       return addtag.save();
    }
 
-   async updateTag(id: string, uptag: UpdateTagDto): Promise<Tag> {
+   async updateTag(id: string, uptag: UpdateTagDto) {
       return await this.tagModel.findByIdAndUpdate(id, uptag).exec();
    }
 

@@ -8,6 +8,9 @@ export type NotificationDocument = HydratedDocument<Notification>
 @Schema()
 export class Notification {
    @Prop({required: true})
+   subject: string
+
+   @Prop({required: true})
    message: string
 
    @Prop({default: Date.now()})

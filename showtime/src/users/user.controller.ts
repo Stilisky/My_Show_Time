@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, Param, Post, Res, Query, Render, Session} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res, Query, Render, Session } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createuser.dto';
@@ -8,7 +8,6 @@ import * as bcrypt from 'bcrypt';
 //import { get } from 'superagent';
 
 @Controller("users")
-
 export class UserController {
    constructor(private readonly userService: UserService) { }
 
@@ -26,7 +25,7 @@ export class UserController {
 
 
    @Post('/login')
-   async login(
+   async login( 
       @Session() session,
       @Body() existingUser: CreateUserDto,
       @Res() res: Response,
@@ -34,7 +33,9 @@ export class UserController {
       const { user } = await this.userService.validateUser(existingUser.email, existingUser.password);
       // Redirect to /home if login is successful
       if (user) {
-         session["user"] = user.email
+         session["userId"] = user._id
+         session["name"] = user.username
+         session["email"] = user.email
          return res.redirect('/');
       }
       else {
@@ -48,15 +49,8 @@ export class UserController {
       return { error };
    }
 
-   @Get('/register')
-   @Render('register.hbs')
-   showRegistrationForm() {
-      return { errorMessage: null };
-   }
-
    //Create new user
    @Post('/register')
-   @Render('register.hbs')
    async saveUser(
       @Body() newuser: CreateUserDto,
       @Res() res: Response,
@@ -67,22 +61,14 @@ export class UserController {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       newuser.password = hashedPassword;
 
-      const errorMessages = [];
-      try {
-         const createdUser = await this.userService.createUser(newuser);
-         if (!createdUser) {
-            errorMessages.push('Email or username is already taken');
-         } else {
-            // Redirect to "favTag" page upon successful registration
-            // res.redirect('/favTag');
-            res.redirect('login.hbs');
-         }
+      const createdUser = await this.userService.createUser(newuser);
+      // Redirect to "favTag" page upon successful registration
+      if (createdUser) {
+         // res.redirect('/favTag');
+         res.render('login.hbs');
+      } else {
+         res.render('register.hbs', { errorMessage: 'Registration failed. Email or username invalid! ' });
       }
-      catch (error) {
-         errorMessages.push(error.message);
-      }
-      return { errorMessages }; // Pass the error message to the template
-
    }
 
   //Find user by id
